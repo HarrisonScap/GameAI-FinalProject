@@ -8,10 +8,11 @@ var enemy_name
 var health = 50
 var is_blocking = false
 
+# Continously updates the information per frame
 func _process(delta):
 	label.text = enemy_name + "\n" + "Health: " + str(health)
 
-
+# Generates enemy name randomly
 func generate_name():
 	var names = [
 		"Marcus",
@@ -59,10 +60,12 @@ func generate_name():
 	]
 	return names.pick_random() + " " + titles.pick_random()
 
+# Chooses enemy move (currently just random)
 func choose_move():
 	var moves = ["Attack", "Block"]
 	return moves.pick_random()
 
+# On game load, generates enemy name and forms the label
 func _ready():
 	enemy_name = generate_name()
 	label.text = enemy_name + "\n" + "Health: " + str(health)

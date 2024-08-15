@@ -25,7 +25,7 @@ script = ExtResource("1_ygpgh")
 environment = SubResource("Environment_g1lyf")
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(0.851123, -0.0701385, 0.52026, 0, 0.991035, 0.133606, -0.524967, -0.113715, 0.843492, 7.69108, 4.34811, 6.41704)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.512, 3.959, 7.332)
 fov = 33.3
 size = 5.374
 near = 0.165
@@ -99,7 +99,10 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.313, 1.605, -4.074)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.168, 1.605, 2.831)
 
 [node name="arena" parent="." instance=ExtResource("1_nenmy")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.52055, 1.62225, 2.60236)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.52055, 1.62225, -1.03656)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.900963, -0.0680033, 0.428533, -4.44089e-16, 0.987642, 0.156728, -0.433895, -0.141206, 0.889829, 0, 13.6018, 0)
 
 [connection signal="pressed" from="Control/Continue" to="." method="_on_continue_pressed"]
 [connection signal="pressed" from="Control/Player/Attack" to="." method="_on_attack_pressed"]
