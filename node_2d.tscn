@@ -1,0 +1,94 @@
+[gd_scene load_steps=3 format=3 uid="uid://deit8pdo7nb3h"]
+
+[ext_resource type="Script" path="res://Node2D.gd" id="1_h0idj"]
+[ext_resource type="Texture2D" uid="uid://0oud2qbhru7b" path="res://icon.svg" id="2_5x7yr"]
+
+[node name="Node2D" type="Node2D"]
+script = ExtResource("1_h0idj")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(567.808, 572.211)
+scale = Vector2(7.96576, 1.02707)
+texture = ExtResource("2_5x7yr")
+
+[node name="You" type="Node2D" parent="."]
+position = Vector2(140, 442.83)
+
+[node name="sword" type="Sprite2D" parent="You"]
+position = Vector2(59.63, -19)
+rotation = 0.680678
+scale = Vector2(0.224818, 0.882803)
+texture = ExtResource("2_5x7yr")
+
+[node name="Sprite2D" type="Sprite2D" parent="You"]
+position = Vector2(0.37, 0)
+scale = Vector2(0.621094, 1.15217)
+texture = ExtResource("2_5x7yr")
+
+[node name="Label" type="Label" parent="You"]
+offset_left = -21.37
+offset_top = -107.0
+offset_right = 21.63
+offset_bottom = -81.0
+text = "10/10"
+
+[node name="Enemy" type="Node2D" parent="."]
+position = Vector2(369, 5)
+
+[node name="Sprite2D" type="Sprite2D" parent="Enemy"]
+position = Vector2(560, 432)
+scale = Vector2(0.648438, 1.15625)
+texture = ExtResource("2_5x7yr")
+
+[node name="Label" type="Label" parent="Enemy"]
+offset_left = 538.0
+offset_top = 326.0
+offset_right = 581.0
+offset_bottom = 352.0
+text = "10/10"
+
+[node name="moveForwardButton" type="Button" parent="."]
+offset_left = 66.0
+offset_top = 85.0
+offset_right = 117.0
+offset_bottom = 119.0
+
+[node name="moveBackButton" type="Button" parent="."]
+offset_left = 65.0
+offset_top = 30.0
+offset_right = 116.0
+offset_bottom = 64.0
+
+[node name="attackButton" type="Button" parent="."]
+offset_left = 66.0
+offset_top = 146.0
+offset_right = 117.0
+offset_bottom = 180.0
+
+[node name="moveForward" type="Label" parent="."]
+offset_left = 148.0
+offset_top = 93.0
+offset_right = 188.0
+offset_bottom = 116.0
+text = "Move Forward"
+
+[node name="Attack" type="Label" parent="."]
+offset_left = 147.0
+offset_top = 153.0
+offset_right = 190.0
+offset_bottom = 179.0
+text = "Attack
+"
+
+[node name="moveForward2" type="Label" parent="."]
+offset_left = 149.0
+offset_top = 33.0
+offset_right = 260.0
+offset_bottom = 59.0
+text = "Move Backward"
+
+[connection signal="pressed" from="moveForwardButton" to="." method="_on_move_button_pressed"]
+[connection signal="pressed" from="moveForwardButton" to="." method="_on_move_forward_button_pressed"]
+[connection signal="pressed" from="moveBackButton" to="." method="_on_move_button_pressed"]
+[connection signal="pressed" from="moveBackButton" to="." method="_on_move_back_button_pressed"]
+[connection signal="pressed" from="attackButton" to="." method="_on_attack_button_pressed"]
