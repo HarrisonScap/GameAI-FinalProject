@@ -1,0 +1,106 @@
+[gd_scene load_steps=10 format=3 uid="uid://bm3ip2d6pqnxj"]
+
+[ext_resource type="Script" path="res://Enemy.gd" id="1_cccd8"]
+[ext_resource type="PackedScene" uid="uid://b36ufns1mo2kc" path="res://assets/gltf/arena/arena.gltf" id="1_nenmy"]
+[ext_resource type="Script" path="res://main.gd" id="1_ygpgh"]
+[ext_resource type="PackedScene" uid="uid://b30ksp1eqoj28" path="res://assets/gltf/dummy/dummy.gltf" id="2_8f48e"]
+[ext_resource type="Script" path="res://Continue.gd" id="2_afuai"]
+[ext_resource type="Script" path="res://Player.gd" id="2_pk0yy"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_nvopg"]
+sky_top_color = Color(0.658493, 0.342203, 0.325236, 1)
+sky_horizon_color = Color(0.805937, 0.615726, 0.372581, 1)
+
+[sub_resource type="Sky" id="Sky_qlr20"]
+sky_material = SubResource("ProceduralSkyMaterial_nvopg")
+
+[sub_resource type="Environment" id="Environment_g1lyf"]
+background_mode = 2
+sky = SubResource("Sky_qlr20")
+
+[node name="Node3D" type="Node3D"]
+script = ExtResource("1_ygpgh")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_g1lyf")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(0.851123, -0.0701385, 0.52026, 0, 0.991035, 0.133606, -0.524967, -0.113715, 0.843492, 7.69108, 4.34811, 6.41704)
+fov = 33.3
+size = 5.374
+near = 0.165
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="resolve" type="Label" parent="Control"]
+layout_mode = 0
+offset_left = 383.0
+offset_top = 97.0
+offset_right = 770.0
+offset_bottom = 227.0
+
+[node name="Continue" type="Button" parent="Control"]
+layout_mode = 0
+offset_left = 491.0
+offset_top = 241.0
+offset_right = 660.0
+offset_bottom = 286.0
+text = "Continue"
+script = ExtResource("2_afuai")
+
+[node name="Player" type="Node2D" parent="Control"]
+script = ExtResource("2_pk0yy")
+
+[node name="Attack" type="Button" parent="Control/Player"]
+offset_left = 113.0
+offset_top = 442.0
+offset_right = 462.0
+offset_bottom = 492.0
+text = "Attack"
+
+[node name="Block" type="Button" parent="Control/Player"]
+offset_left = 113.0
+offset_top = 515.0
+offset_right = 462.0
+offset_bottom = 565.0
+text = "Block
+"
+
+[node name="Player Information" type="Label" parent="Control/Player"]
+offset_left = 22.0
+offset_top = 20.0
+offset_right = 120.0
+offset_bottom = 81.0
+text = "Player
+Health: 50
+"
+metadata/_edit_use_anchors_ = true
+
+[node name="Enemy" type="Node2D" parent="Control"]
+script = ExtResource("1_cccd8")
+
+[node name="Enemy Information" type="Label" parent="Control/Enemy"]
+offset_left = 874.0
+offset_top = 550.0
+offset_right = 963.0
+offset_bottom = 606.0
+text = "Enemy
+Health: 50
+"
+
+[node name="dummy" parent="." instance=ExtResource("2_8f48e")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.313, 1.605, -4.074)
+
+[node name="dummy2" parent="." instance=ExtResource("2_8f48e")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.168, 1.605, 2.831)
+
+[node name="arena" parent="." instance=ExtResource("1_nenmy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.52055, 1.62225, 2.60236)
+
+[connection signal="pressed" from="Control/Continue" to="." method="_on_continue_pressed"]
+[connection signal="pressed" from="Control/Player/Attack" to="." method="_on_attack_pressed"]
+[connection signal="pressed" from="Control/Player/Block" to="." method="_on_block_pressed"]
