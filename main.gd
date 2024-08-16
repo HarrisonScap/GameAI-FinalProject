@@ -15,6 +15,19 @@ extends Node3D
 # Game variables #
 var round = 1
 
+
+func _process(delta):
+	# if enemy or player dies...
+	if enemy.health < 1:
+		#update fights won, spawn a new enemy with increased health
+		player.fights_won += 1
+		enemy.spawn_enemy(player.fights_won)
+		if player.fights_won % 3 == 0: # give the player a potion every 3 wins
+			player.potions += 1
+	elif player.health < 1:
+		get_tree().change_scene("TEMP NAME")  # add scene for the main menu (.tscn)
+
+
 # Called by the whatever button the player clicks, gets the enemy move and then calls
 # resolve() to play out the game
 func play(player_move):
@@ -37,6 +50,17 @@ func resolve(player_move, enemy_move):
 		enemy.health -= 10
 	if enemy_move == "Attack" and !player.is_blocking:
 		player.health -= 10
+
+	# Resolve the potion
+	if player_move == "Potion":
+		player.health += 10
+	if enemy_move == "Potion": #take this out if enemies do not have potions. maybe bosses have them?
+		enemy.health += 10
+
+	if player_move == "Pass":
+		player.stamina += 10
+	if enemy_move == "Pass":
+		enemy.stamina += 10
 	
 	# Reset the blocking state to false
 	enemy.is_blocking = false
@@ -67,4 +91,14 @@ func _on_attack_pressed():
 func _on_continue_pressed():
 	label.text = ""
 	continue_button.visible = false
+	toggle_button_visibility()
+
+func _on_potion_pressed():
+	print("Player chose Potion")
+	play("Potion")
+	toggle_button_visibility()
+
+func _on_pass_pressed():
+	print("Player chooses Pass")
+	play("Pass")
 	toggle_button_visibility()
