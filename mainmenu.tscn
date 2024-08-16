@@ -1,0 +1,58 @@
+[gd_scene load_steps=3 format=3 uid="uid://dxolv18skliok"]
+
+[ext_resource type="Script" path="res://mainmenu.gd" id="1_ba8xa"]
+[ext_resource type="PackedScene" uid="uid://b36ufns1mo2kc" path="res://assets/gltf/arena/arena.gltf" id="2_1ro43"]
+
+[node name="Mainmenu" type="Node3D"]
+script = ExtResource("1_ba8xa")
+
+[node name="arena" parent="." instance=ExtResource("2_1ro43")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.52055, 1.62225, -1.03656)
+
+[node name="Control" type="Control" parent="arena"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Weapon 1" type="Button" parent="arena/Control"]
+layout_mode = 0
+offset_left = 32.0
+offset_top = 462.0
+offset_right = 238.0
+offset_bottom = 541.0
+text = "Weapon 1"
+
+[node name="Weapon 2" type="Button" parent="arena/Control"]
+offset_left = 252.0
+offset_top = 460.0
+offset_right = 458.0
+offset_bottom = 539.0
+text = "Weapon 2"
+
+[node name="Weapon 3" type="Button" parent="arena/Control"]
+offset_left = 480.0
+offset_top = 460.0
+offset_right = 686.0
+offset_bottom = 539.0
+text = "Weapon 3"
+
+[node name="Weapon 4" type="Button" parent="arena/Control"]
+offset_left = 706.0
+offset_top = 460.0
+offset_right = 912.0
+offset_bottom = 539.0
+text = "Weapon 4"
+
+[node name="Weapon 5" type="Button" parent="arena/Control"]
+offset_left = 927.0
+offset_top = 460.0
+offset_right = 1133.0
+offset_bottom = 539.0
+text = "Weapon 5"
+
+[connection signal="pressed" from="arena/Control/Weapon 1" to="." method="_on_weapon_1_pressed"]
+[connection signal="pressed" from="arena/Control/Weapon 2" to="." method="_on_weapon_2_pressed"]
+[connection signal="pressed" from="arena/Control/Weapon 3" to="." method="_on_weapon_3_pressed"]
+[connection signal="pressed" from="arena/Control/Weapon 4" to="." method="_on_weapon_4_pressed"]
+[connection signal="pressed" from="arena/Control/Weapon 5" to="." method="_on_weapon_5_pressed"]
