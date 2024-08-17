@@ -65,6 +65,7 @@ offset_left = 25.0
 offset_top = 524.0
 offset_right = 160.0
 offset_bottom = 574.0
+theme_override_colors/icon_disabled_color = Color(0.604586, 0, 0.230644, 1)
 text = "Attack"
 
 [node name="Attack2" type="Button" parent="Control/Player"]
@@ -104,10 +105,10 @@ offset_bottom = 626.0
 text = "Potion (3/3)"
 
 [node name="Player Information" type="Label" parent="Control/Player"]
-offset_left = 11.0
-offset_top = 8.0
-offset_right = 109.0
-offset_bottom = 69.0
+offset_left = 53.0
+offset_top = 45.0
+offset_right = 151.0
+offset_bottom = 106.0
 text = "Player
 Health: 50
 "
@@ -117,10 +118,10 @@ metadata/_edit_use_anchors_ = true
 script = ExtResource("1_cccd8")
 
 [node name="Enemy Information" type="Label" parent="Control/Enemy"]
-offset_left = 1049.0
-offset_top = 581.0
-offset_right = 1138.0
-offset_bottom = 637.0
+offset_left = 999.0
+offset_top = 538.0
+offset_right = 1088.0
+offset_bottom = 594.0
 text = "Enemy
 Health: 50
 "

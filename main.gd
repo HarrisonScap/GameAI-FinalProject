@@ -4,16 +4,34 @@ extends Node3D
 @onready var enemy = $Control/Enemy
 @onready var player = $Control/Player
 
+############
 # Controls #
-@onready var attack_button = $Control/Player/Attack
+############
+
+# Attacks
+@onready var attack1_button = $Control/Player/Attack
+@onready var attack2_button = $Control/Player/Attack2
+@onready var attack3_button = $Control/Player/Attack3
+
+# Other
 @onready var block_button = $Control/Player/Block
+@onready var potion_button = $Control/Player/Potion
+@onready var pass_button = $Control/Player/Pass
 @onready var continue_button = $Control/Continue
 
 # Label #
 @onready var label = $Control/resolve
 
 # Game variables #
-var round = 1
+var game_round = 1
+var attack_moves
+
+func _ready():
+	attack_moves = Globals.weapons[Globals.playerWeapon].keys() # 3 moves
+	attack1_button.text = attack_moves[0]
+	attack2_button.text = attack_moves[1]
+	attack3_button.text = attack_moves[2]
+
 
 func _process(delta):
 	# if enemy or player dies...
@@ -25,6 +43,40 @@ func _process(delta):
 			player.potions += 1
 	elif player.health < 1:
 		get_tree().change_scene_to_file("res://mainmenu.tscn")  # add scene for the main menu (.tscn)
+	
+	# Block
+	if player.stamina < 25 or player.is_stun:
+		block_button.disabled = true
+	else:
+		block_button.disabled = false
+		
+	# Attack 1
+	if player.is_stun or player.stamina < Globals.weapons[Globals.playerWeapon][attack_moves[0]]["Stamina"]:
+		attack1_button.disabled = true
+	else:
+		attack1_button.disabled = false
+
+	# Attack 2
+	if player.is_stun or player.stamina < Globals.weapons[Globals.playerWeapon][attack_moves[1]]["Stamina"]:
+		attack2_button.disabled = true
+	else:
+		attack2_button.disabled = false
+
+	# Attack 3
+	if player.is_stun or player.stamina < Globals.weapons[Globals.playerWeapon][attack_moves[2]]["Stamina"]:
+		attack3_button.disabled = true
+	else:
+		attack3_button.disabled = false
+
+	# Potion
+	if player.potions == 0 or player.is_stun:
+		potion_button.disabled = true
+	else:
+		potion_button.disabled = false
+
+	# Unstun
+	
+
 
 
 
@@ -35,7 +87,7 @@ func play(player_move):
 	var enemy_move = enemy.choose_move()
 	print("Enemy chooses " + str(enemy_move))
 	resolve(player_move, enemy_move)
-	round += 1
+	game_round += 1
 
 # Handles all the game logic regarding what moves do what -- we may wana think of
 # a better way to do this...
@@ -48,8 +100,13 @@ func resolve(player_move, enemy_move):
 	if player_move == "Potion":
 		player.health += 10
 		player.potions -= 1
+		if player.health > 100:
+			player.health = 100
 	elif player_move == "Pass":
+		player.is_stun = false
 		player.stamina += 10
+		if player.stamina > 100:
+			player.stamina = 100
 	elif player_move == "Block":
 		player.stamina -= 25
 	else:
@@ -60,8 +117,13 @@ func resolve(player_move, enemy_move):
 	if enemy_move == "Potion": #take this out if enemies do not have potions. maybe bosses have them?
 		enemy.health += 10
 		enemy.potions -= 1
+		if enemy.health > 100:
+			enemy.health = 100
 	elif enemy_move == "Pass":
+		enemy.is_stun = false
 		enemy.stamina += 10
+		if enemy.stamina > 100:
+			enemy.stamina = 100
 	elif enemy_move == "Block":
 		enemy.stamina -= 25
 	else:
@@ -126,14 +188,12 @@ func resolve(player_move, enemy_move):
 		#check for bleed moves
 		if enemy_move in Globals.bleed_moves:
 			player.is_bleeding = true  
-			player.bleeding_remaining_turns = 2
-			player.bleed_damage = 5  
+			player.bleeding_remaining_turns = 2  
 		
 		
 		if player_move in Globals.bleed_moves:
 			enemy.is_bleeding = true 
 			enemy.bleeding_remaining_turns = 2
-			enemy.bleed_damage = 5
 
 		if player_move in Globals.damage_moves:
 			enemy.health -= Globals.weapons[Globals.playerWeapon][player_move]["damage"]
@@ -142,13 +202,13 @@ func resolve(player_move, enemy_move):
 		
 
 	if player.is_bleeding: 
-		player.health -= player.bleed_damage
+		player.health -= 5
 		player.bleeding_remaining_turns -=1
 		if player.bleeding_remaining_turns <= 0:
 			player.is_bleeding = false
 	
 	if enemy.is_bleeding: 
-		enemy.health -= player.bleed_damage
+		enemy.health -= 5
 		enemy.bleeding_remaining_turns -=1
 		if enemy.bleeding_remaining_turns <= 0:
 			enemy.is_bleeding = false
@@ -160,7 +220,11 @@ func resolve(player_move, enemy_move):
 
 # Toggles visibility of the attack and block buttons
 func toggle_button_visibility():
-	attack_button.visible = !attack_button.visible
+	attack1_button.visible = !attack1_button.visible
+	attack2_button.visible = !attack2_button.visible
+	attack3_button.visible = !attack3_button.visible
+	potion_button.visible = !potion_button.visible
+	pass_button.visible = !pass_button.visible
 	block_button.visible = !block_button.visible
 
 
@@ -172,41 +236,50 @@ func toggle_button_visibility():
 
 # Signal from block button
 func _on_block_pressed():
-	print("Player chooses Block")
 	play("Block")
 	toggle_button_visibility()
 
 # Signal from attack button
 func _on_attack_pressed():
-
-	toggle_button_visibility()
+	if player.is_stun or player.stamina < Globals.weapons[Globals.playerWeapon][attack_moves[0]]["Stamina"]:
+		pass
+	else:	
+		play(attack_moves[0])
+		toggle_button_visibility()
 
 func _on_attack_2_pressed():
-	pass # Replace with function body.
-	
+	if player.is_stun or player.stamina < Globals.weapons[Globals.playerWeapon][attack_moves[1]]["Stamina"]:
+		pass
+	else:	
+		play(attack_moves[1])
+		toggle_button_visibility()
+		
 
 func _on_attack_3_pressed():
-	pass # Replace with function body.
-
-
-# Signal from continue button
-func _on_continue_pressed():
-	label.text = ""
-	continue_button.visible = false
-	toggle_button_visibility()
-
+	if player.is_stun or player.stamina < Globals.weapons[Globals.playerWeapon][attack_moves[2]]["Stamina"]:
+		pass
+	else:	
+		play(attack_moves[2])
+		toggle_button_visibility()
 
 func _on_pass_pressed():
 	print("Player chooses Pass")
 	play("Pass")
 	toggle_button_visibility()
 
-
 func _on_potion_pressed():
-	print("Player chose Potion")
-	play("Potion")
+	if player.potions == 0:
+		pass
+	else:
+		print("Player chose Potion")
+		play("Potion")
+		toggle_button_visibility()
+		
+# Signal from continue button
+func _on_continue_pressed():
+	label.text = ""
+	continue_button.visible = false
 	toggle_button_visibility()
-	
-	
+
 
 

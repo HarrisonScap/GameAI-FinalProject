@@ -7,7 +7,7 @@ extends Node2D
 
 # Name of enemy
 var enemy_name
-var health = 50
+var health = 100
 var stamina = 100
 
 # Conditions #
@@ -20,7 +20,7 @@ var bleeding_remaining_turns = 0
 
 # Continously updates the information per frame
 func _process(delta):
-	label.text = enemy_name + "\n" + "Health: " + str(health)
+	label.text = enemy_name + "\n" + "Health: " + str(health) + "\nStamina: " + str(stamina) 
 
 # Generates enemy name randomly
 func generate_name():
@@ -73,8 +73,8 @@ func generate_name():
 # Chooses enemy move (currently just random)
 func choose_move():
 	var moves = ["Block", "Pass"]
-	for key, value in Globals.weapons:
-		
+	for key in Globals.weapons[Globals.enemyWeapon].keys():
+		moves.append(key)
 	return moves.pick_random()
 
 # Spawns an enemy with increased health based on fights won by player
