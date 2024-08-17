@@ -68,13 +68,14 @@ func _process(delta):
 	else:
 		attack3_button.disabled = false
 
+
+	potion_button.text = "Potions (" + str(player.potions) + "/3)"
 	# Potion
-	if player.potions == 0 or player.is_stun:
+	if player.potions == 0 or player.is_stun or player.health == 100:
 		potion_button.disabled = true
 	else:
 		potion_button.disabled = false
 
-	# Unstun
 	
 
 
@@ -113,6 +114,19 @@ func resolve(player_move, enemy_move):
 		# Index into  weapon dictionary and remove stamina from player
 		player.stamina -= Globals.weapons[Globals.playerWeapon][player_move]["Stamina"]
 	
+	# Check if bleeding
+	if player.is_bleeding: 
+		player.health -= 5
+		player.bleeding_remaining_turns -=1
+		if player.bleeding_remaining_turns <= 0:
+			player.is_bleeding = false
+	
+	if enemy.is_bleeding: 
+		enemy.health -= 5
+		enemy.bleeding_remaining_turns -=1
+		if enemy.bleeding_remaining_turns <= 0:
+			enemy.is_bleeding = false
+
 	#same for enemy
 	if enemy_move == "Potion": #take this out if enemies do not have potions. maybe bosses have them?
 		enemy.health += 10
@@ -201,17 +215,7 @@ func resolve(player_move, enemy_move):
 			player.health -= Globals.weapons[Globals.enemyWeapon][enemy_move]["damage"]
 		
 
-	if player.is_bleeding: 
-		player.health -= 5
-		player.bleeding_remaining_turns -=1
-		if player.bleeding_remaining_turns <= 0:
-			player.is_bleeding = false
-	
-	if enemy.is_bleeding: 
-		enemy.health -= 5
-		enemy.bleeding_remaining_turns -=1
-		if enemy.bleeding_remaining_turns <= 0:
-			enemy.is_bleeding = false
+
 
 	
 	# Put together the resolution text

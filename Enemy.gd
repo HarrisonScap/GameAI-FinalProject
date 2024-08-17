@@ -79,7 +79,8 @@ func choose_move():
 
 # Spawns an enemy with increased health based on fights won by player
 func spawn_enemy(fights_won):
-	health = 50 + (5 * fights_won)
+	health = 100 + (5 * fights_won)
+	stamina = 100
 	enemy_name = generate_name()
 	label.text = enemy_name + "\n" + "Health: " + str(health)
 	Globals.enemyWeapon = ["Sword", "Spear and Shield", "Mace"].pick_random()

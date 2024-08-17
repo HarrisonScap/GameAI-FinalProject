@@ -9,7 +9,7 @@ func _on_weapon_1_pressed():
 
 
 func _on_weapon_2_pressed():
-	Globals.playerWeapon = "Bow and Arrow"
+	Globals.playerWeapon = "Spear and Shield"
 	get_tree().change_scene_to_file("res://main.tscn")
 
 
@@ -24,5 +24,5 @@ func _on_weapon_4_pressed():
 
 
 func _on_weapon_5_pressed():
-	Globals.playerWeapon = "Spear and Shield"
+	Globals.playerWeapon = "Bow and Arrow"
 	get_tree().change_scene_to_file("res://main.tscn")
