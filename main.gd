@@ -39,6 +39,12 @@ func play(player_move):
 # Handles all the game logic regarding what moves do what -- we may wana think of
 # a better way to do this...
 func resolve(player_move, enemy_move):
+	# Resolve the potion
+	if player_move == "Potion":
+		player.health += 10
+	if enemy_move == "Potion": #take this out if enemies do not have potions. maybe bosses have them?
+		enemy.health += 10
+
 	# Check if player and enemy are blocking
 	if enemy_move == "Block":
 		enemy.is_blocking = true
@@ -50,12 +56,6 @@ func resolve(player_move, enemy_move):
 		enemy.health -= 10
 	if enemy_move == "Attack" and !player.is_blocking:
 		player.health -= 10
-
-	# Resolve the potion
-	if player_move == "Potion":
-		player.health += 10
-	if enemy_move == "Potion": #take this out if enemies do not have potions. maybe bosses have them?
-		enemy.health += 10
 
 	if player_move == "Pass":
 		player.stamina += 10
@@ -93,12 +93,14 @@ func _on_continue_pressed():
 	continue_button.visible = false
 	toggle_button_visibility()
 
-func _on_potion_pressed():
-	print("Player chose Potion")
-	play("Potion")
-	toggle_button_visibility()
 
 func _on_pass_pressed():
 	print("Player chooses Pass")
 	play("Pass")
+	toggle_button_visibility()
+
+
+func _on_potion_pressed():
+	print("Player chose Potion")
+	play("Potion")
 	toggle_button_visibility()

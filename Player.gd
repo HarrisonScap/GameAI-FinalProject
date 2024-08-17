@@ -12,3 +12,5 @@ var potions = 3 # starts with 3 potions, change as needed for balance
 # Continously updates the information per frame
 func _process(delta):
 	label.text = "Player" + "\n" + "Health: " + str(health)
+	
+

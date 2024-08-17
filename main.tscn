@@ -61,25 +61,46 @@ script = ExtResource("2_afuai")
 script = ExtResource("2_pk0yy")
 
 [node name="Attack" type="Button" parent="Control/Player"]
-offset_left = 113.0
-offset_top = 442.0
-offset_right = 462.0
-offset_bottom = 492.0
+offset_left = 25.0
+offset_top = 524.0
+offset_right = 160.0
+offset_bottom = 574.0
 text = "Attack"
 
+[node name="Attack2" type="Button" parent="Control/Player"]
+offset_left = 162.0
+offset_top = 524.0
+offset_right = 301.0
+offset_bottom = 574.0
+text = "Attack2"
+
 [node name="Block" type="Button" parent="Control/Player"]
-offset_left = 113.0
-offset_top = 515.0
-offset_right = 462.0
-offset_bottom = 565.0
+offset_left = 25.0
+offset_top = 576.0
+offset_right = 160.0
+offset_bottom = 626.0
 text = "Block
 "
 
+[node name="Pass" type="Button" parent="Control/Player"]
+offset_left = 162.0
+offset_top = 576.0
+offset_right = 300.0
+offset_bottom = 626.0
+text = "Pass"
+
+[node name="Potion" type="Button" parent="Control/Player"]
+offset_left = 302.0
+offset_top = 576.0
+offset_right = 440.0
+offset_bottom = 626.0
+text = "Potion (3/3)"
+
 [node name="Player Information" type="Label" parent="Control/Player"]
-offset_left = 22.0
-offset_top = 20.0
-offset_right = 120.0
-offset_bottom = 81.0
+offset_left = 11.0
+offset_top = 8.0
+offset_right = 109.0
+offset_bottom = 69.0
 text = "Player
 Health: 50
 "
@@ -89,10 +110,10 @@ metadata/_edit_use_anchors_ = true
 script = ExtResource("1_cccd8")
 
 [node name="Enemy Information" type="Label" parent="Control/Enemy"]
-offset_left = 874.0
-offset_top = 550.0
-offset_right = 963.0
-offset_bottom = 606.0
+offset_left = 1049.0
+offset_top = 581.0
+offset_right = 1138.0
+offset_bottom = 637.0
 text = "Enemy
 Health: 50
 "
@@ -109,3 +130,5 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.52055, 1.62225, -1.03656)
 [connection signal="pressed" from="Control/Continue" to="." method="_on_continue_pressed"]
 [connection signal="pressed" from="Control/Player/Attack" to="." method="_on_attack_pressed"]
 [connection signal="pressed" from="Control/Player/Block" to="." method="_on_block_pressed"]
+[connection signal="pressed" from="Control/Player/Pass" to="." method="_on_pass_pressed"]
+[connection signal="pressed" from="Control/Player/Potion" to="." method="_on_potion_pressed"]

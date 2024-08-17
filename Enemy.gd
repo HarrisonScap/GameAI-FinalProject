@@ -5,7 +5,6 @@ extends Node2D
 
 @onready var player = $"../Player"
 
-
 # Name of enemy
 var enemy_name
 var health = 50
