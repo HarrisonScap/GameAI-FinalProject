@@ -4,10 +4,19 @@ extends Node2D
 
 # Player Variables #
 var health = 50
-var is_blocking = false
 var stamina = 100
+
+
 var fights_won = 0
 var potions = 3 # starts with 3 potions, change as needed for balance
+
+# Conditions #
+
+var is_blocking = false
+var is_stun = false
+var is_bleeding = false
+
+var bleeding_remaining_turns = 0
 
 # Continously updates the information per frame
 func _process(delta):

@@ -74,13 +74,6 @@ offset_right = 301.0
 offset_bottom = 574.0
 text = "Attack2"
 
-[node name="Attack3" type="Button" parent="Control/Player"]
-offset_left = 302.0
-offset_top = 525.0
-offset_right = 441.0
-offset_bottom = 575.0
-text = "Attack3"
-
 [node name="Block" type="Button" parent="Control/Player"]
 offset_left = 25.0
 offset_top = 576.0
@@ -136,8 +129,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.52055, 1.62225, -1.03656)
 
 [connection signal="pressed" from="Control/Continue" to="." method="_on_continue_pressed"]
 [connection signal="pressed" from="Control/Player/Attack" to="." method="_on_attack_pressed"]
-[connection signal="pressed" from="Control/Player/Attack2" to="." method="_on_attack_2_pressed"]
-[connection signal="pressed" from="Control/Player/Attack3" to="." method="_on_attack_3_pressed"]
 [connection signal="pressed" from="Control/Player/Block" to="." method="_on_block_pressed"]
 [connection signal="pressed" from="Control/Player/Pass" to="." method="_on_pass_pressed"]
 [connection signal="pressed" from="Control/Player/Potion" to="." method="_on_potion_pressed"]

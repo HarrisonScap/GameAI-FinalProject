@@ -1,4 +1,4 @@
-[gd_scene load_steps=3 format=3 uid="uid://dxolv18skliok"]
+[gd_scene load_steps=3 format=3 uid="uid://dp3ievo5x0fj4"]
 
 [ext_resource type="Script" path="res://mainmenu.gd" id="1_ba8xa"]
 [ext_resource type="PackedScene" uid="uid://b36ufns1mo2kc" path="res://assets/gltf/arena/arena.gltf" id="2_1ro43"]
@@ -24,6 +24,7 @@ offset_bottom = 541.0
 text = "Weapon 1"
 
 [node name="Weapon 2" type="Button" parent="arena/Control"]
+layout_mode = 0
 offset_left = 252.0
 offset_top = 460.0
 offset_right = 458.0
@@ -31,6 +32,7 @@ offset_bottom = 539.0
 text = "Weapon 2"
 
 [node name="Weapon 3" type="Button" parent="arena/Control"]
+layout_mode = 0
 offset_left = 480.0
 offset_top = 460.0
 offset_right = 686.0
@@ -38,6 +40,7 @@ offset_bottom = 539.0
 text = "Weapon 3"
 
 [node name="Weapon 4" type="Button" parent="arena/Control"]
+layout_mode = 0
 offset_left = 706.0
 offset_top = 460.0
 offset_right = 912.0
@@ -45,6 +48,7 @@ offset_bottom = 539.0
 text = "Weapon 4"
 
 [node name="Weapon 5" type="Button" parent="arena/Control"]
+layout_mode = 0
 offset_left = 927.0
 offset_top = 460.0
 offset_right = 1133.0

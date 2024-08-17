@@ -8,8 +8,15 @@ extends Node2D
 # Name of enemy
 var enemy_name
 var health = 50
-var is_blocking = false
 var stamina = 100
+
+# Conditions #
+
+var is_blocking = false
+var is_stun = false
+var is_bleeding = false
+
+var bleeding_remaining_turns = 0
 
 # Continously updates the information per frame
 func _process(delta):
@@ -65,7 +72,9 @@ func generate_name():
 
 # Chooses enemy move (currently just random)
 func choose_move():
-	var moves = ["Attack", "Block"]
+	var moves = ["Block", "Pass"]
+	for key, value in Globals.weapons:
+		
 	return moves.pick_random()
 
 # Spawns an enemy with increased health based on fights won by player
@@ -73,6 +82,7 @@ func spawn_enemy(fights_won):
 	health = 50 + (5 * fights_won)
 	enemy_name = generate_name()
 	label.text = enemy_name + "\n" + "Health: " + str(health)
+	Globals.enemyWeapon = ["Sword", "Spear and Shield", "Mace"].pick_random()
 
 # On game load, generates enemy name and forms the label
 func _ready():
