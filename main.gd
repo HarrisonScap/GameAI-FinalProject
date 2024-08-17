@@ -98,9 +98,12 @@ func _on_pass_pressed():
 	print("Player chooses Pass")
 	play("Pass")
 	toggle_button_visibility()
+<<<<<<< HEAD
 
 
 func _on_potion_pressed():
 	print("Player chose Potion")
 	play("Potion")
 	toggle_button_visibility()
+=======
+>>>>>>> 7a04456845f1e4b1f1514ec59ce5214f86691ad5
