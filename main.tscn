@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://bm3ip2d6pqnxj"]
+[gd_scene load_steps=11 format=3 uid="uid://bm3ip2d6pqnxj"]
 
 [ext_resource type="Script" path="res://Enemy.gd" id="1_cccd8"]
 [ext_resource type="PackedScene" uid="uid://b36ufns1mo2kc" path="res://assets/gltf/arena/arena.gltf" id="1_nenmy"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://b30ksp1eqoj28" path="res://assets/gltf/dummy/dummy.gltf" id="2_8f48e"]
 [ext_resource type="Script" path="res://Continue.gd" id="2_afuai"]
 [ext_resource type="Script" path="res://Player.gd" id="2_pk0yy"]
+[ext_resource type="PackedScene" uid="uid://bpa5ll5ia5u6w" path="res://behavior_trees/behavior_tree1/enemy_tree1.tscn" id="5_sxouq"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_nvopg"]
 sky_top_color = Color(0.658493, 0.342203, 0.325236, 1)
@@ -116,6 +117,9 @@ metadata/_edit_use_anchors_ = true
 
 [node name="Enemy" type="Node2D" parent="Control"]
 script = ExtResource("1_cccd8")
+
+[node name="BeehaveTree" parent="Control/Enemy" node_paths=PackedStringArray("blackboard") instance=ExtResource("5_sxouq")]
+blackboard = NodePath("@Node@48399")
 
 [node name="Enemy Information" type="Label" parent="Control/Enemy"]
 offset_left = 999.0

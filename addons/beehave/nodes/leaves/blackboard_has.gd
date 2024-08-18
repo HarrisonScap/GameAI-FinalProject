@@ -18,6 +18,5 @@ func tick(actor: Node, blackboard: Blackboard) -> int:
 	
 	return SUCCESS if blackboard.has_value(key_value) else FAILURE
 
-
 func _get_expression_sources() -> Array[String]:
 	return [key]

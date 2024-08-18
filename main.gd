@@ -35,43 +35,43 @@ func _ready():
 
 func _process(delta):
 	# if enemy or player dies...
-	if enemy.health < 1:
+	if Globals.enemyHealth < 1:
 		#update fights won, spawn a new enemy with increased health
 		player.fights_won += 1
 		enemy.spawn_enemy(player.fights_won)
 		if player.fights_won % 3 == 0: # give the player a potion every 3 wins
-			player.potions += 1
-	elif player.health < 1:
+			Globals.playerPotions += 1
+	elif Globals.playerHealth < 1:
 		get_tree().change_scene_to_file("res://mainmenu.tscn")  # add scene for the main menu (.tscn)
 	
 	# Block
-	if player.stamina < 25 or player.is_stun:
+	if Globals.playerStamina < 25 or Globals.playerStun:
 		block_button.disabled = true
 	else:
 		block_button.disabled = false
 		
 	# Attack 1
-	if player.is_stun or player.stamina < Globals.weapons[Globals.playerWeapon][attack_moves[0]]["Stamina"]:
+	if Globals.playerStun or Globals.playerStamina < Globals.weapons[Globals.playerWeapon][attack_moves[0]]["Stamina"]:
 		attack1_button.disabled = true
 	else:
 		attack1_button.disabled = false
 
 	# Attack 2
-	if player.is_stun or player.stamina < Globals.weapons[Globals.playerWeapon][attack_moves[1]]["Stamina"]:
+	if Globals.playerStun or Globals.playerStamina < Globals.weapons[Globals.playerWeapon][attack_moves[1]]["Stamina"]:
 		attack2_button.disabled = true
 	else:
 		attack2_button.disabled = false
 
 	# Attack 3
-	if player.is_stun or player.stamina < Globals.weapons[Globals.playerWeapon][attack_moves[2]]["Stamina"]:
+	if Globals.playerStun or Globals.playerStamina < Globals.weapons[Globals.playerWeapon][attack_moves[2]]["Stamina"]:
 		attack3_button.disabled = true
 	else:
 		attack3_button.disabled = false
 
 
-	potion_button.text = "Potions (" + str(player.potions) + "/3)"
+	potion_button.text = "Potions (" + str(Globals.playerPotions) + "/3)"
 	# Potion
-	if player.potions == 0 or player.is_stun or player.health == 100:
+	if Globals.playerPotions == 0 or Globals.playerStun or Globals.playerHealth == 100:
 		potion_button.disabled = true
 	else:
 		potion_button.disabled = false
@@ -85,7 +85,8 @@ func _process(delta):
 # Called by the whatever button the player clicks, gets the enemy move and then calls
 # resolve() to play out the game
 func play(player_move):
-	var enemy_move = enemy.choose_move()
+	#var enemy_move = enemy.choose_move()
+	var enemy_move = Globals.enemyMove
 	print("Enemy chooses " + str(enemy_move))
 	resolve(player_move, enemy_move)
 	game_round += 1
@@ -99,50 +100,50 @@ func resolve(player_move, enemy_move):
 	########################
 	# perform potions and stamina costs
 	if player_move == "Potion":
-		player.health += 10
-		player.potions -= 1
-		if player.health > 100:
-			player.health = 100
+		Globals.playerHealth += 10
+		Globals.playerPotions -= 1
+		if Globals.playerHealth > 100:
+			Globals.playerHealth = 100
 	elif player_move == "Pass":
-		player.is_stun = false
-		player.stamina += 10
-		if player.stamina > 100:
-			player.stamina = 100
+		Globals.playerStun = false
+		Globals.playerStamina += 10
+		if Globals.playerStamina > 100:
+			Globals.playerStamina = 100
 	elif player_move == "Block":
-		player.stamina -= 25
+		Globals.playerStamina -= 25
 	else:
 		# Index into  weapon dictionary and remove stamina from player
-		player.stamina -= Globals.weapons[Globals.playerWeapon][player_move]["Stamina"]
+		Globals.playerStamina -= Globals.weapons[Globals.playerWeapon][player_move]["Stamina"]
 	
 	# Check if bleeding
-	if player.is_bleeding: 
-		player.health -= 5
-		player.bleeding_remaining_turns -=1
-		if player.bleeding_remaining_turns <= 0:
-			player.is_bleeding = false
+	if Globals.playerBleed: 
+		Globals.playerHealth -= 5
+		Globals.playerBleedTurns -=1
+		if Globals.playerBleedTurns <= 0:
+			Globals.playerBleed = false
 	
-	if enemy.is_bleeding: 
-		enemy.health -= 5
-		enemy.bleeding_remaining_turns -=1
-		if enemy.bleeding_remaining_turns <= 0:
-			enemy.is_bleeding = false
+	if Globals.enemyBleed: 
+		Globals.enemyHealth -= 5
+		Globals.enemyBleedTurns -=1
+		if Globals.enemyBleedTurns <= 0:
+			Globals.enemyBleed = false
 
 	#same for enemy
 	if enemy_move == "Potion": #take this out if enemies do not have potions. maybe bosses have them?
-		enemy.health += 10
+		Globals.enemyHealth += 10
 		enemy.potions -= 1
-		if enemy.health > 100:
-			enemy.health = 100
+		if Globals.enemyHealth > 100:
+			Globals.enemyHealth = 100
 	elif enemy_move == "Pass":
-		enemy.is_stun = false
-		enemy.stamina += 10
-		if enemy.stamina > 100:
-			enemy.stamina = 100
+		Globals.enemyStun = false
+		Globals.enemyStamina += 10
+		if Globals.enemyStamina > 100:
+			Globals.enemyStamina = 100
 	elif enemy_move == "Block":
-		enemy.stamina -= 25
+		Globals.enemyStamina -= 25
 	else:
 		# Index into  weapon dictionary and remove stamina from enemy
-		enemy.stamina -= Globals.weapons[Globals.enemyWeapon][enemy_move]["Stamina"]
+		Globals.enemyStamina -= Globals.weapons[Globals.enemyWeapon][enemy_move]["Stamina"]
 
 
 	###############################
@@ -160,31 +161,31 @@ func resolve(player_move, enemy_move):
 	
 		#some moves are unblockable
 		if player_move in Globals.unblockable_moves:
-			enemy.health -= (Globals.weapons[Globals.playerWeapon][player_move]["damage"])
+			Globals.enemyHealth -= (Globals.weapons[Globals.playerWeapon][player_move]["damage"])
 			#spin attack stuns the attacker
 			if player_move == "Spin Attack":
-				player.is_stun = true
+				Globals.playerStun = true
 	
 		#riposte is a block that deals damage to the attacker
 		elif enemy_move == "Riposte":
-			player.health -= Globals.weapons["Sword"]["Riposte"]["damage"]
+			Globals.playerHealth -= Globals.weapons["Sword"]["Riposte"]["damage"]
 	
 		#block reduces damage by 10, so block only "works" if the move does more than 10 damage
 		elif enemy_move == "Block" and Globals.weapons[Globals.playerWeapon][player_move]["damage"] >= 10:
-			enemy.health -= (Globals.weapons[Globals.playerWeapon][player_move]["damage"] - 10)
+			Globals.enemyHealth -= (Globals.weapons[Globals.playerWeapon][player_move]["damage"] - 10)
 	
 	
 	elif (player_move in Globals.block_moves) && (enemy_move in Globals.damage_moves):
 		if enemy_move in Globals.unblockable_moves:
-			player.health -= Globals.weapons[Globals.enemyWeapon][enemy_move]["damage"]
+			Globals.playerHealth -= Globals.weapons[Globals.enemyWeapon][enemy_move]["damage"]
 			if enemy_move == "Spin Attack":
-				enemy.is_stun = true
+				Globals.enemyStun = true
 	
 		elif player_move == "Riposte":
-			enemy.health -= Globals.weapons["Sword"]["Riposte"]["damage"]
+			Globals.enemyHealth -= Globals.weapons["Sword"]["Riposte"]["damage"]
 	
 		elif player_move == "Block" and Globals.weapons[Globals.enemyWeapon][enemy_move]["damage"] >= 10:
-			player.health -= (Globals.weapons[Globals.enemyWeapon][enemy_move]["damage"] - 10)
+			Globals.playerHealth -= (Globals.weapons[Globals.enemyWeapon][enemy_move]["damage"] - 10)
 	
 	
 	#check if both people are blocking (nothing happens)
@@ -195,24 +196,24 @@ func resolve(player_move, enemy_move):
 	else: # damage + damage // damage + stun // 
 		#check for stun moves
 		if (player_move in Globals.stun_moves): # player stuns enemy #
-			enemy.is_stun = true
+			Globals.enemyStun = true
 		if (enemy_move in Globals.stun_moves): # enemy stuns player #
-			player.is_stun = true
+			Globals.playerStun = true
 		
 		#check for bleed moves
 		if enemy_move in Globals.bleed_moves:
-			player.is_bleeding = true  
-			player.bleeding_remaining_turns = 2  
+			Globals.playerBleed = true  
+			Globals.playerBleedTurns = 2  
 		
 		
 		if player_move in Globals.bleed_moves:
-			enemy.is_bleeding = true 
-			enemy.bleeding_remaining_turns = 2
+			Globals.enemyBleed = true 
+			Globals.enemyBleedTurns = 2
 
 		if player_move in Globals.damage_moves:
-			enemy.health -= Globals.weapons[Globals.playerWeapon][player_move]["damage"]
+			Globals.enemyHealth -= Globals.weapons[Globals.playerWeapon][player_move]["damage"]
 		if enemy_move in Globals.damage_moves:
-			player.health -= Globals.weapons[Globals.enemyWeapon][enemy_move]["damage"]
+			Globals.playerHealth -= Globals.weapons[Globals.enemyWeapon][enemy_move]["damage"]
 		
 
 
@@ -245,14 +246,14 @@ func _on_block_pressed():
 
 # Signal from attack button
 func _on_attack_pressed():
-	if player.is_stun or player.stamina < Globals.weapons[Globals.playerWeapon][attack_moves[0]]["Stamina"]:
+	if Globals.playerStun or Globals.playerStamina < Globals.weapons[Globals.playerWeapon][attack_moves[0]]["Stamina"]:
 		pass
 	else:	
 		play(attack_moves[0])
 		toggle_button_visibility()
 
 func _on_attack_2_pressed():
-	if player.is_stun or player.stamina < Globals.weapons[Globals.playerWeapon][attack_moves[1]]["Stamina"]:
+	if Globals.playerStun or Globals.playerStamina < Globals.weapons[Globals.playerWeapon][attack_moves[1]]["Stamina"]:
 		pass
 	else:	
 		play(attack_moves[1])
@@ -260,7 +261,7 @@ func _on_attack_2_pressed():
 		
 
 func _on_attack_3_pressed():
-	if player.is_stun or player.stamina < Globals.weapons[Globals.playerWeapon][attack_moves[2]]["Stamina"]:
+	if Globals.playerStun or Globals.playerStamina < Globals.weapons[Globals.playerWeapon][attack_moves[2]]["Stamina"]:
 		pass
 	else:	
 		play(attack_moves[2])
@@ -272,7 +273,7 @@ func _on_pass_pressed():
 	toggle_button_visibility()
 
 func _on_potion_pressed():
-	if player.potions == 0:
+	if Globals.playerPotions == 0:
 		pass
 	else:
 		print("Player chose Potion")

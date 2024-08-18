@@ -42,6 +42,23 @@ var unblockable_moves = ["Spin Attack", "Break Shield"]
 #
 
 
-# Player and Enemy weapons
+# Player Attributes
+var playerHealth
+var playerStamina
 var playerWeapon
+var playerStun
+var playerBleed
+var playerBleedTurns
+var playerPotions
+
+
+# Enemy Attributes
+var enemyHealth
+var enemyStamina
 var enemyWeapon
+var enemyStun
+var enemyBleed
+var enemyBleedTurns
+var enemyPotions
+
+var enemyMove # The move the enemy will choose

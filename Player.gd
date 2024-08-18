@@ -1,24 +1,16 @@
 extends Node2D
 
 @onready var label = $"Player Information"
-
-# Player Variables #
-var health = 100
-var stamina = 100
-
-
 var fights_won = 0
-var potions = 3 # starts with 3 potions, change as needed for balance
-
-# Conditions #
-
-var is_blocking = false
-var is_stun = false
-var is_bleeding = false
-var bleeding_remaining_turns = 0
 
 # Continously updates the information per frame
 func _process(delta):
-	label.text = "Player" + "\n" + "Health: " + str(health) + "\nStamina: " + str(stamina) 
-	
+	label.text = "Player" + "\n" + "Health: " + str(Globals.playerHealth) + "\nStamina: " + str(Globals.playerStamina) 
 
+func _ready():
+	Globals.playerHealth = 100
+	Globals.playerStamina = 100
+	Globals.playerStun = false
+	Globals.playerBleed = false
+	Globals.playerBleedTurns = 0
+	Globals.playerPotions = 3

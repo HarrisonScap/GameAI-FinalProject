@@ -1,0 +1,94 @@
+[gd_scene load_steps=19 format=3 uid="uid://bpa5ll5ia5u6w"]
+
+[ext_resource type="Script" path="res://addons/beehave/nodes/beehave_tree.gd" id="1_dto8y"]
+[ext_resource type="Script" path="res://addons/beehave/nodes/composites/selector.gd" id="2_dssmr"]
+[ext_resource type="Script" path="res://addons/beehave/nodes/composites/sequence.gd" id="3_c5otr"]
+[ext_resource type="Script" path="res://behavior_trees/behavior_tree1/healthCheck.gd" id="4_xwg8e"]
+[ext_resource type="Script" path="res://behavior_trees/behavior_tree1/usePotion.gd" id="5_wo0lk"]
+[ext_resource type="Script" path="res://addons/beehave/nodes/composites/selector_random.gd" id="6_4gn2w"]
+[ext_resource type="Script" path="res://behavior_trees/behavior_tree1/staminaCheck.gd" id="6_6yamf"]
+[ext_resource type="Script" path="res://behavior_trees/behavior_tree1/Pass.gd" id="7_uv42b"]
+[ext_resource type="Script" path="res://behavior_trees/behavior_tree1/stunCheck.gd" id="8_o04cu"]
+[ext_resource type="Script" path="res://behavior_trees/behavior_tree1/blockCheck.gd" id="10_dyy3u"]
+[ext_resource type="Script" path="res://behavior_trees/behavior_tree1/Block.gd" id="11_o0li2"]
+[ext_resource type="Script" path="res://behavior_trees/behavior_tree1/attack1Check.gd" id="12_x1tbo"]
+[ext_resource type="Script" path="res://behavior_trees/behavior_tree1/Attack1.gd" id="13_3rp3v"]
+[ext_resource type="Script" path="res://behavior_trees/behavior_tree1/attack2Check.gd" id="14_2fnuu"]
+[ext_resource type="Script" path="res://behavior_trees/behavior_tree1/Attack2.gd" id="15_fal0o"]
+[ext_resource type="Script" path="res://behavior_trees/behavior_tree1/attack3Check.gd" id="16_4idl3"]
+[ext_resource type="Script" path="res://behavior_trees/behavior_tree1/Attack3.gd" id="17_mlmai"]
+[ext_resource type="Script" path="res://behavior_trees/behavior_tree1/forcePass.gd" id="18_d6guc"]
+
+[node name="BeehaveTree" type="Node" node_paths=PackedStringArray("blackboard", "actor")]
+script = ExtResource("1_dto8y")
+blackboard = NodePath("@Node@30481")
+actor = NodePath("..")
+
+[node name="Move" type="Node" parent="."]
+script = ExtResource("2_dssmr")
+
+[node name="potionSequence" type="Node" parent="Move"]
+script = ExtResource("3_c5otr")
+
+[node name="healthCheck" type="Node" parent="Move/potionSequence"]
+script = ExtResource("4_xwg8e")
+
+[node name="usePotion" type="Node" parent="Move/potionSequence"]
+script = ExtResource("5_wo0lk")
+
+[node name="passSequence" type="Node" parent="Move"]
+script = ExtResource("3_c5otr")
+
+[node name="staminaCheck" type="Node" parent="Move/passSequence"]
+script = ExtResource("6_6yamf")
+
+[node name="Pass" type="Node" parent="Move/passSequence"]
+script = ExtResource("7_uv42b")
+
+[node name="attackSequence" type="Node" parent="Move"]
+script = ExtResource("3_c5otr")
+
+[node name="stunCheck" type="Node" parent="Move/attackSequence"]
+script = ExtResource("8_o04cu")
+
+[node name="randomSelect" type="Node" parent="Move/attackSequence"]
+script = ExtResource("6_4gn2w")
+
+[node name="blockSequence" type="Node" parent="Move/attackSequence/randomSelect"]
+script = ExtResource("3_c5otr")
+
+[node name="blockCheck" type="Node" parent="Move/attackSequence/randomSelect/blockSequence"]
+script = ExtResource("10_dyy3u")
+
+[node name="Block" type="Node" parent="Move/attackSequence/randomSelect/blockSequence"]
+script = ExtResource("11_o0li2")
+
+[node name="attack1Sequence" type="Node" parent="Move/attackSequence/randomSelect"]
+script = ExtResource("3_c5otr")
+
+[node name="attack1Check" type="Node" parent="Move/attackSequence/randomSelect/attack1Sequence"]
+script = ExtResource("12_x1tbo")
+
+[node name="Attack1" type="Node" parent="Move/attackSequence/randomSelect/attack1Sequence"]
+script = ExtResource("13_3rp3v")
+
+[node name="attack2Sequence" type="Node" parent="Move/attackSequence/randomSelect"]
+script = ExtResource("3_c5otr")
+
+[node name="attack2Check" type="Node" parent="Move/attackSequence/randomSelect/attack2Sequence"]
+script = ExtResource("14_2fnuu")
+
+[node name="Attack2" type="Node" parent="Move/attackSequence/randomSelect/attack2Sequence"]
+script = ExtResource("15_fal0o")
+
+[node name="attack3Sequence" type="Node" parent="Move/attackSequence/randomSelect"]
+script = ExtResource("3_c5otr")
+
+[node name="attack3Check" type="Node" parent="Move/attackSequence/randomSelect/attack3Sequence"]
+script = ExtResource("16_4idl3")
+
+[node name="Attack3" type="Node" parent="Move/attackSequence/randomSelect/attack3Sequence"]
+script = ExtResource("17_mlmai")
+
+[node name="forcePass" type="Node" parent="Move"]
+script = ExtResource("18_d6guc")
