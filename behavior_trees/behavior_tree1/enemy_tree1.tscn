@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://bpa5ll5ia5u6w"]
+[gd_scene load_steps=17 format=3 uid="uid://bpa5ll5ia5u6w"]
 
 [ext_resource type="Script" path="res://addons/beehave/nodes/beehave_tree.gd" id="1_dto8y"]
 [ext_resource type="Script" path="res://addons/beehave/nodes/composites/selector.gd" id="2_dssmr"]
@@ -6,8 +6,6 @@
 [ext_resource type="Script" path="res://behavior_trees/behavior_tree1/healthCheck.gd" id="4_xwg8e"]
 [ext_resource type="Script" path="res://behavior_trees/behavior_tree1/usePotion.gd" id="5_wo0lk"]
 [ext_resource type="Script" path="res://addons/beehave/nodes/composites/selector_random.gd" id="6_4gn2w"]
-[ext_resource type="Script" path="res://behavior_trees/behavior_tree1/staminaCheck.gd" id="6_6yamf"]
-[ext_resource type="Script" path="res://behavior_trees/behavior_tree1/Pass.gd" id="7_uv42b"]
 [ext_resource type="Script" path="res://behavior_trees/behavior_tree1/stunCheck.gd" id="8_o04cu"]
 [ext_resource type="Script" path="res://behavior_trees/behavior_tree1/blockCheck.gd" id="10_dyy3u"]
 [ext_resource type="Script" path="res://behavior_trees/behavior_tree1/Block.gd" id="11_o0li2"]
@@ -35,15 +33,6 @@ script = ExtResource("4_xwg8e")
 
 [node name="usePotion" type="Node" parent="Move/potionSequence"]
 script = ExtResource("5_wo0lk")
-
-[node name="passSequence" type="Node" parent="Move"]
-script = ExtResource("3_c5otr")
-
-[node name="staminaCheck" type="Node" parent="Move/passSequence"]
-script = ExtResource("6_6yamf")
-
-[node name="Pass" type="Node" parent="Move/passSequence"]
-script = ExtResource("7_uv42b")
 
 [node name="attackSequence" type="Node" parent="Move"]
 script = ExtResource("3_c5otr")
