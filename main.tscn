@@ -119,7 +119,7 @@ metadata/_edit_use_anchors_ = true
 script = ExtResource("1_cccd8")
 
 [node name="BeehaveTree" parent="Control/Enemy" node_paths=PackedStringArray("blackboard") instance=ExtResource("5_sxouq")]
-blackboard = NodePath("@Node@48399")
+blackboard = NodePath("@Node@17511")
 
 [node name="Enemy Information" type="Label" parent="Control/Enemy"]
 offset_left = 999.0
