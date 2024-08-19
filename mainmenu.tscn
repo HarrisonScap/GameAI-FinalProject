@@ -2,8 +2,8 @@
 
 [ext_resource type="Script" path="res://mainmenu.gd" id="1_ba8xa"]
 [ext_resource type="PackedScene" uid="uid://b36ufns1mo2kc" path="res://assets/gltf/arena/arena.gltf" id="2_1ro43"]
-[ext_resource type="PackedScene" uid="uid://cy2uxwdyb8eiu" path="res://assets/gltf/sword/sword.gltf" id="3_7okhd"]
-[ext_resource type="Script" path="res://Sword.gd" id="3_r4kgr"]
+[ext_resource type="PackedScene" uid="uid://bwo1u271wwnpu" path="res://assets/gltf/sword/sword.gltf" id="3_7okhd"]
+[ext_resource type="Script" path="res://assets/gltf/sword/sword.gd" id="4_2f04r"]
 
 [node name="Mainmenu" type="Node3D"]
 script = ExtResource("1_ba8xa")
@@ -60,16 +60,13 @@ offset_right = 1133.0
 offset_bottom = 539.0
 text = "Weapon 5"
 
-[node name="Sword" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.81197, 3.8806, 0)
-script = ExtResource("3_r4kgr")
-
-[node name="sword_model" parent="Sword" instance=ExtResource("3_7okhd")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.20719, -2.23028, 3.68906)
-
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.828012, -0.0878791, 0.553782, 4.55488e-09, 0.987642, 0.156728, -0.560711, -0.129773, 0.817779, 7.24798, 13.6018, 8.73694)
 light_bake_mode = 1
+
+[node name="sword" parent="." instance=ExtResource("3_7okhd")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.68618, 3.83021, -1.45514)
+script = ExtResource("4_2f04r")
 
 [connection signal="pressed" from="arena/Control/Weapon 1" to="." method="_on_weapon_1_pressed"]
 [connection signal="pressed" from="arena/Control/Weapon 2" to="." method="_on_weapon_2_pressed"]
