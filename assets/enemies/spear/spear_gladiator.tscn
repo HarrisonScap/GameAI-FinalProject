@@ -1,0 +1,26 @@
+[gd_scene load_steps=3 format=3 uid="uid://dfvi5g6768upw"]
+
+[ext_resource type="PackedScene" uid="uid://6v8od4y5emka" path="res://assets/gltf/spear_gladiator/spear_gladiator_finished.gltf" id="1_31mrl"]
+[ext_resource type="Script" path="res://assets/enemies/spear/spear_gladiator_finished.gd" id="2_5hvbp"]
+
+[node name="spear_gladiator_finished" instance=ExtResource("1_31mrl")]
+script = ExtResource("2_5hvbp")
+
+[node name="Skeleton3D" parent="sword_rig_002" index="0"]
+bones/0/rotation = Quaternion(0.14805, 1.17896e-07, 1.76489e-08, 0.98898)
+bones/1/rotation = Quaternion(-0.0868533, -1.18759e-07, -1.03537e-08, 0.996221)
+bones/5/rotation = Quaternion(0.244861, -2.48562e-29, 2.18407e-21, 0.969558)
+bones/6/rotation = Quaternion(-0.0231782, -0.114333, 0.973471, -0.196837)
+bones/7/rotation = Quaternion(0.156449, -0.0789295, -0.276697, 0.944845)
+bones/11/rotation = Quaternion(0.0308242, 0.0311989, 0.99669, 0.0684555)
+bones/12/rotation = Quaternion(0.584954, 0.154848, -0.0446015, 0.794898)
+bones/13/rotation = Quaternion(-0.0357737, -0.0105943, -0.0376976, 0.998592)
+bones/17/rotation = Quaternion(0.0875412, -1.05428e-09, -1.19973e-08, 0.996161)
+
+[node name="Cylinder_004" parent="sword_rig_002/Skeleton3D" index="0"]
+transform = Transform3D(0.119434, -0.0207936, 0.725937, 0.700383, -0.191243, -0.120707, 0.192041, 0.710405, -0.0112465, 0.442737, 0.885967, -0.119502)
+
+[node name="Cylinder_005" parent="sword_rig_002/Skeleton3D" index="1"]
+transform = Transform3D(0.211643, 7.8863e-08, 0.977347, 0.387759, 0.917928, -0.0839688, -0.897134, 0.396746, 0.194274, -0.394967, 1.60319, 0.55701)
+
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]

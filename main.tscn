@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://bm3ip2d6pqnxj"]
+[gd_scene load_steps=12 format=3 uid="uid://bm3ip2d6pqnxj"]
 
 [ext_resource type="Script" path="res://Enemy.gd" id="1_cccd8"]
 [ext_resource type="PackedScene" uid="uid://b36ufns1mo2kc" path="res://assets/gltf/arena/arena.gltf" id="1_nenmy"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" path="res://Continue.gd" id="2_afuai"]
 [ext_resource type="Script" path="res://Player.gd" id="2_pk0yy"]
 [ext_resource type="PackedScene" uid="uid://bpa5ll5ia5u6w" path="res://behavior_trees/behavior_tree1/enemy_tree1.tscn" id="5_sxouq"]
+[ext_resource type="PackedScene" uid="uid://dfvi5g6768upw" path="res://assets/enemies/spear/spear_gladiator.tscn" id="7_b8x4m"]
 [ext_resource type="PackedScene" uid="uid://cll1wpt3smqb6" path="res://assets/enemies/sword/sword_gladiator.tscn" id="8_iyplt"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_nvopg"]
@@ -120,7 +121,7 @@ metadata/_edit_use_anchors_ = true
 script = ExtResource("1_cccd8")
 
 [node name="BeehaveTree" parent="Control/Enemy" node_paths=PackedStringArray("blackboard") instance=ExtResource("5_sxouq")]
-blackboard = NodePath("@Node@39954")
+blackboard = NodePath("@Node@46521")
 
 [node name="Enemy Information" type="Label" parent="Control/Enemy"]
 offset_left = 999.0
@@ -133,6 +134,9 @@ Health: 50
 
 [node name="sword_gladiator_finished" parent="." instance=ExtResource("8_iyplt")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.97793, 2.15734, -2.85442)
+
+[node name="spear_gladiator_finished" parent="." instance=ExtResource("7_b8x4m")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.96202, 2.04852, -2.69917)
 
 [node name="arena" parent="." instance=ExtResource("1_nenmy")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.52055, 1.62225, -1.03656)

@@ -21,7 +21,7 @@ extends Node3D
 
 # Enemy Gladiators # (A Bit Janky but its gonna work I promise)
 @onready var enemy_sword = $sword_gladiator_finished
-
+@onready var enemy_spear = $spear_gladiator_finished
 
 # Label #
 @onready var label = $Control/resolve
@@ -48,6 +48,18 @@ func _process(delta):
 			Globals.playerPotions += 1
 	elif Globals.playerHealth < 1:
 		get_tree().change_scene_to_file("res://mainmenu.tscn")  # add scene for the main menu (.tscn)
+	
+	# **Potentially Temporary**
+	# Shows the enemy model that you're currently facing and hides the others
+	if Globals.enemyWeapon == "Sword":
+		enemy_sword.visible = true
+		enemy_spear.visible = false
+		#enemy_mace.visible = false
+	elif Globals.enemyWeapon == "Spear and Shield":
+		enemy_sword.visible = false
+		enemy_spear.visible = true
+		#enemy_mace.visible = false
+	
 	
 	# Block
 	if Globals.playerStamina < 25 or Globals.playerStun:
@@ -83,7 +95,14 @@ func _process(delta):
 
 	
 
-
+func play_enemy_anim(enemy_move):
+	if Globals.enemyWeapon == "Sword":
+		enemy_sword.play(enemy_move)
+	elif Globals.enemyWeapon == "Spear and Shield":
+		enemy_spear.play(enemy_move)
+	else:
+		pass
+		#enemy_mace.play(enemy_move) #not yet implemented
 
 
 
@@ -94,7 +113,11 @@ func play(player_move):
 	
 	# Handle enemy move
 	var enemy_move = Globals.enemyMove
-	enemy_sword.play(enemy_move) # Play enemy attack animation
+	
+	
+	#enemy_sword.play(enemy_move) # Play enemy attack animation
+	play_enemy_anim(enemy_move)
+	
 	print("Enemy chooses " + str(enemy_move))
 	
 	resolve(player_move, enemy_move) # Resolve conflict

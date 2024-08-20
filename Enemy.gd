@@ -77,9 +77,7 @@ func spawn_enemy(fights_won):
 	Globals.enemyStamina = 100
 	enemy_name = generate_name()
 	label.text = enemy_name + "\n" + "Health: " + str(Globals.enemyHealth)
-	#Globals.enemyWeapon = ["Sword", "Spear and Shield", "Mace"].pick_random()
-	# Temporary testing change
-	Globals.enemyWeapon = "Sword"
+	Globals.enemyWeapon = ["Sword", "Spear and Shield"].pick_random() #MAKE SURE TO READD MACE HERE
 	
 	
 # On game load, generates enemy name and forms the label
