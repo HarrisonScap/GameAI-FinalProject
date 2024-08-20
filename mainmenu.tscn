@@ -1,9 +1,13 @@
-[gd_scene load_steps=5 format=3 uid="uid://dp3ievo5x0fj4"]
+[gd_scene load_steps=9 format=3 uid="uid://dp3ievo5x0fj4"]
 
 [ext_resource type="Script" path="res://mainmenu.gd" id="1_ba8xa"]
 [ext_resource type="PackedScene" uid="uid://b36ufns1mo2kc" path="res://assets/gltf/arena/arena.gltf" id="2_1ro43"]
 [ext_resource type="PackedScene" uid="uid://bwo1u271wwnpu" path="res://assets/gltf/sword/sword.gltf" id="3_7okhd"]
 [ext_resource type="Script" path="res://assets/gltf/sword/sword.gd" id="4_2f04r"]
+[ext_resource type="PackedScene" uid="uid://eqh2sm3vepc2" path="res://assets/gltf/mace/mace_menu.gltf" id="5_m1orh"]
+[ext_resource type="Script" path="res://assets/gltf/mace/mace_menu.gd" id="6_cn02t"]
+[ext_resource type="PackedScene" uid="uid://bhwdcyofeir3h" path="res://assets/gltf/spear/spear_menu.gltf" id="7_fi1i7"]
+[ext_resource type="Script" path="res://assets/gltf/spear/spear_menu.gd" id="8_vlq63"]
 
 [node name="Mainmenu" type="Node3D"]
 script = ExtResource("1_ba8xa")
@@ -67,6 +71,14 @@ light_bake_mode = 1
 [node name="sword" parent="." instance=ExtResource("3_7okhd")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.68618, 3.83021, -1.45514)
 script = ExtResource("4_2f04r")
+
+[node name="mace_menu" parent="." instance=ExtResource("5_m1orh")]
+transform = Transform3D(1.2, 0, 0, 0, 1.2, 0, 0, 0, 1.2, 0.8, 4.7, -1.455)
+script = ExtResource("6_cn02t")
+
+[node name="spear_menu" parent="." instance=ExtResource("7_fi1i7")]
+transform = Transform3D(0.66, 0, 0, 0, 0.66, 0, 0, 0, 0.66, -1.1, 4.5, -1.455)
+script = ExtResource("8_vlq63")
 
 [connection signal="pressed" from="arena/Control/Weapon 1" to="." method="_on_weapon_1_pressed"]
 [connection signal="pressed" from="arena/Control/Weapon 2" to="." method="_on_weapon_2_pressed"]

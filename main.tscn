@@ -123,7 +123,7 @@ metadata/_edit_use_anchors_ = true
 script = ExtResource("1_cccd8")
 
 [node name="BeehaveTree" parent="Control/Enemy" node_paths=PackedStringArray("blackboard") instance=ExtResource("5_sxouq")]
-blackboard = NodePath("@Node@33284")
+blackboard = NodePath("@Node@17522")
 
 [node name="Enemy Information" type="Label" parent="Control/Enemy"]
 offset_left = 999.0
@@ -136,7 +136,7 @@ Health: 50
 
 [node name="BeehaveTree2" type="Node" parent="Control/Enemy" node_paths=PackedStringArray("blackboard", "actor")]
 script = ExtResource("6_781yn")
-blackboard = NodePath("@Node@33285")
+blackboard = NodePath("@Node@17523")
 actor = NodePath("..")
 
 [node name="sword_gladiator_finished" parent="." instance=ExtResource("8_iyplt")]

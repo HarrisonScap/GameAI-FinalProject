@@ -1,5 +1,5 @@
-class_name forcePass extends ActionLeaf
+# class_name forcePass extends ActionLeaf
 
-func tick(actor: Node, _blackboard: Blackboard) -> int:
-    Globals.enemyMove = "Pass"
-    return SUCCESS
+# func tick(actor: Node, _blackboard: Blackboard) -> int:
+#     Globals.enemyMove = "Pass"
+#     return SUCCESS
