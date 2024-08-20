@@ -1,10 +1,11 @@
-[gd_scene load_steps=14 format=3 uid="uid://bm3ip2d6pqnxj"]
+[gd_scene load_steps=15 format=3 uid="uid://bm3ip2d6pqnxj"]
 
 [ext_resource type="Script" path="res://Enemy.gd" id="1_cccd8"]
 [ext_resource type="PackedScene" uid="uid://b36ufns1mo2kc" path="res://assets/gltf/arena/arena.gltf" id="1_nenmy"]
 [ext_resource type="Script" path="res://main.gd" id="1_ygpgh"]
 [ext_resource type="Script" path="res://Continue.gd" id="2_afuai"]
 [ext_resource type="Script" path="res://Player.gd" id="2_pk0yy"]
+[ext_resource type="PackedScene" uid="uid://did0pebisd104" path="res://behavior_trees/behavior_tree3/behavior_tree3.tscn" id="5_01pq8"]
 [ext_resource type="PackedScene" uid="uid://bpa5ll5ia5u6w" path="res://behavior_trees/behavior_tree1/enemy_tree1.tscn" id="5_sxouq"]
 [ext_resource type="Script" path="res://addons/beehave/nodes/beehave_tree.gd" id="6_781yn"]
 [ext_resource type="PackedScene" uid="uid://dfvi5g6768upw" path="res://assets/enemies/spear/spear_gladiator.tscn" id="7_b8x4m"]
@@ -122,8 +123,13 @@ metadata/_edit_use_anchors_ = true
 [node name="Enemy" type="Node2D" parent="Control"]
 script = ExtResource("1_cccd8")
 
-[node name="BeehaveTree" parent="Control/Enemy" node_paths=PackedStringArray("blackboard") instance=ExtResource("5_sxouq")]
-blackboard = NodePath("@Node@17522")
+[node name="BehaviorTree3" parent="Control/Enemy" node_paths=PackedStringArray("blackboard") instance=ExtResource("5_01pq8")]
+blackboard = NodePath("@Node@42168")
+
+[node name="BeehaveTree" parent="Control/Enemy" node_paths=PackedStringArray("blackboard", "actor") instance=ExtResource("5_sxouq")]
+enabled = false
+blackboard = NodePath("@Node@42169")
+actor = NodePath("..")
 
 [node name="Enemy Information" type="Label" parent="Control/Enemy"]
 offset_left = 999.0
@@ -136,7 +142,8 @@ Health: 50
 
 [node name="BeehaveTree2" type="Node" parent="Control/Enemy" node_paths=PackedStringArray("blackboard", "actor")]
 script = ExtResource("6_781yn")
-blackboard = NodePath("@Node@17523")
+enabled = false
+blackboard = NodePath("@Node@42170")
 actor = NodePath("..")
 
 [node name="sword_gladiator_finished" parent="." instance=ExtResource("8_iyplt")]

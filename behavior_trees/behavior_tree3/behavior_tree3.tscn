@@ -1,0 +1,142 @@
+[gd_scene load_steps=22 format=3 uid="uid://did0pebisd104"]
+
+[ext_resource type="Script" path="res://addons/beehave/nodes/beehave_tree.gd" id="1_0ugmx"]
+[ext_resource type="Script" path="res://addons/beehave/nodes/composites/selector.gd" id="2_r8lq5"]
+[ext_resource type="Script" path="res://behavior_trees/behavior_tree3/d2_checkKillMovePotion1.gd" id="3_2olso"]
+[ext_resource type="Script" path="res://addons/beehave/nodes/composites/sequence.gd" id="3_p07a7"]
+[ext_resource type="Script" path="res://behavior_trees/behavior_tree3/d2_Attack1.gd" id="4_ddrwd"]
+[ext_resource type="Script" path="res://behavior_trees/behavior_tree3/d2_checkKillMovePotion2.gd" id="5_a7hc8"]
+[ext_resource type="Script" path="res://behavior_trees/behavior_tree3/d2_Attack2.gd" id="6_x7lrh"]
+[ext_resource type="Script" path="res://behavior_trees/behavior_tree3/d2_checkKillMovePotion3.gd" id="7_qxnvi"]
+[ext_resource type="Script" path="res://behavior_trees/behavior_tree3/d2_Attack3.gd" id="8_soj5n"]
+[ext_resource type="Script" path="res://behavior_trees/behavior_tree3/d2_checkHealthPotion.gd" id="9_puuvf"]
+[ext_resource type="Script" path="res://behavior_trees/behavior_tree3/d2_usePotion.gd" id="10_88m1h"]
+[ext_resource type="Script" path="res://behavior_trees/behavior_tree3/d2_checkKillMove1.gd" id="11_qd13m"]
+[ext_resource type="Script" path="res://behavior_trees/behavior_tree3/d2_checkKillMove2.gd" id="12_pko07"]
+[ext_resource type="Script" path="res://behavior_trees/behavior_tree3/d2_checkKillMove3.gd" id="13_ydxwp"]
+[ext_resource type="Script" path="res://addons/beehave/nodes/composites/selector_random.gd" id="14_djg1s"]
+[ext_resource type="Script" path="res://behavior_trees/behavior_tree3/d2_checkMove1.gd" id="15_d0xoo"]
+[ext_resource type="Script" path="res://behavior_trees/behavior_tree3/d2_checkMove2.gd" id="16_bljl1"]
+[ext_resource type="Script" path="res://behavior_trees/behavior_tree3/d2_checkMove3.gd" id="17_ftkhn"]
+[ext_resource type="Script" path="res://behavior_trees/behavior_tree3/d2_checkBlock.gd" id="18_u3b46"]
+[ext_resource type="Script" path="res://behavior_trees/behavior_tree3/d2_Block.gd" id="19_jp4qk"]
+[ext_resource type="Script" path="res://behavior_trees/behavior_tree3/d2_forcePass.gd" id="20_6nl2u"]
+
+[node name="BehaviorTree3" type="Node" node_paths=PackedStringArray("blackboard", "actor")]
+script = ExtResource("1_0ugmx")
+blackboard = NodePath("@Node@21889")
+actor = NodePath("")
+
+[node name="d2_selector" type="Node" parent="."]
+script = ExtResource("2_r8lq5")
+
+[node name="d2_killMovesPotionSel" type="Node" parent="d2_selector"]
+script = ExtResource("2_r8lq5")
+
+[node name="SequenceComposite" type="Node" parent="d2_selector/d2_killMovesPotionSel"]
+script = ExtResource("3_p07a7")
+
+[node name="d2_checkKillMovePotion1" type="Node" parent="d2_selector/d2_killMovesPotionSel/SequenceComposite"]
+script = ExtResource("3_2olso")
+
+[node name="d2_Attack1" type="Node" parent="d2_selector/d2_killMovesPotionSel/SequenceComposite"]
+script = ExtResource("4_ddrwd")
+
+[node name="SequenceComposite2" type="Node" parent="d2_selector/d2_killMovesPotionSel"]
+script = ExtResource("3_p07a7")
+
+[node name="d2_checkKillMovePotion3" type="Node" parent="d2_selector/d2_killMovesPotionSel/SequenceComposite2"]
+script = ExtResource("7_qxnvi")
+
+[node name="d2_Attack3" type="Node" parent="d2_selector/d2_killMovesPotionSel/SequenceComposite2"]
+script = ExtResource("8_soj5n")
+
+[node name="SequenceComposite3" type="Node" parent="d2_selector/d2_killMovesPotionSel"]
+script = ExtResource("3_p07a7")
+
+[node name="d2_checkKillMovePotion2" type="Node" parent="d2_selector/d2_killMovesPotionSel/SequenceComposite3"]
+script = ExtResource("5_a7hc8")
+
+[node name="d2_Attack2" type="Node" parent="d2_selector/d2_killMovesPotionSel/SequenceComposite3"]
+script = ExtResource("6_x7lrh")
+
+[node name="SequenceComposite4" type="Node" parent="d2_selector/d2_killMovesPotionSel"]
+script = ExtResource("3_p07a7")
+
+[node name="d2_checkHealthPotion" type="Node" parent="d2_selector/d2_killMovesPotionSel/SequenceComposite4"]
+script = ExtResource("9_puuvf")
+
+[node name="d2_usePotion" type="Node" parent="d2_selector/d2_killMovesPotionSel/SequenceComposite4"]
+script = ExtResource("10_88m1h")
+
+[node name="d2_killMovesSel" type="Node" parent="d2_selector"]
+script = ExtResource("2_r8lq5")
+
+[node name="SequenceComposite" type="Node" parent="d2_selector/d2_killMovesSel"]
+script = ExtResource("3_p07a7")
+
+[node name="d2_checkKillMove1" type="Node" parent="d2_selector/d2_killMovesSel/SequenceComposite"]
+script = ExtResource("11_qd13m")
+
+[node name="d2_Attack1" type="Node" parent="d2_selector/d2_killMovesSel/SequenceComposite"]
+script = ExtResource("4_ddrwd")
+
+[node name="SequenceComposite2" type="Node" parent="d2_selector/d2_killMovesSel"]
+script = ExtResource("3_p07a7")
+
+[node name="d2_checkKillMove2" type="Node" parent="d2_selector/d2_killMovesSel/SequenceComposite2"]
+script = ExtResource("12_pko07")
+
+[node name="d2_Attack2" type="Node" parent="d2_selector/d2_killMovesSel/SequenceComposite2"]
+script = ExtResource("6_x7lrh")
+
+[node name="SequenceComposite3" type="Node" parent="d2_selector/d2_killMovesSel"]
+script = ExtResource("3_p07a7")
+
+[node name="d2_checkKillMove3" type="Node" parent="d2_selector/d2_killMovesSel/SequenceComposite3"]
+script = ExtResource("13_ydxwp")
+
+[node name="d2_Attack3" type="Node" parent="d2_selector/d2_killMovesSel/SequenceComposite3"]
+script = ExtResource("8_soj5n")
+
+[node name="d2_randomMovesSeq" type="Node" parent="d2_selector"]
+script = ExtResource("14_djg1s")
+
+[node name="SequenceComposite" type="Node" parent="d2_selector/d2_randomMovesSeq"]
+script = ExtResource("3_p07a7")
+
+[node name="d2_checkMove1" type="Node" parent="d2_selector/d2_randomMovesSeq/SequenceComposite"]
+script = ExtResource("15_d0xoo")
+
+[node name="d2_Attack1" type="Node" parent="d2_selector/d2_randomMovesSeq/SequenceComposite"]
+script = ExtResource("4_ddrwd")
+
+[node name="SequenceComposite2" type="Node" parent="d2_selector/d2_randomMovesSeq"]
+script = ExtResource("3_p07a7")
+
+[node name="d2_checkMove2" type="Node" parent="d2_selector/d2_randomMovesSeq/SequenceComposite2"]
+script = ExtResource("16_bljl1")
+
+[node name="d2_Attack2" type="Node" parent="d2_selector/d2_randomMovesSeq/SequenceComposite2"]
+script = ExtResource("6_x7lrh")
+
+[node name="SequenceComposite3" type="Node" parent="d2_selector/d2_randomMovesSeq"]
+script = ExtResource("3_p07a7")
+
+[node name="d2_checkMove3" type="Node" parent="d2_selector/d2_randomMovesSeq/SequenceComposite3"]
+script = ExtResource("17_ftkhn")
+
+[node name="d2_Attack3" type="Node" parent="d2_selector/d2_randomMovesSeq/SequenceComposite3"]
+script = ExtResource("8_soj5n")
+
+[node name="SequenceComposite4" type="Node" parent="d2_selector/d2_randomMovesSeq"]
+script = ExtResource("3_p07a7")
+
+[node name="d2_checkBlock" type="Node" parent="d2_selector/d2_randomMovesSeq/SequenceComposite4"]
+script = ExtResource("18_u3b46")
+
+[node name="d2_Block" type="Node" parent="d2_selector/d2_randomMovesSeq/SequenceComposite4"]
+script = ExtResource("19_jp4qk")
+
+[node name="d2_forcePass" type="Node" parent="d2_selector"]
+script = ExtResource("20_6nl2u")

@@ -1,4 +1,4 @@
-class_name attack1Check extends ConditionLeaf
+class_name d2_checkMove1 extends ConditionLeaf
 
 func tick(actor: Node, _blackboard: Blackboard) -> int:
 	var attack = Globals.weapons[Globals.enemyWeapon].keys()[0]
@@ -11,5 +11,4 @@ func tick(actor: Node, _blackboard: Blackboard) -> int:
 		return SUCCESS
 	else:
 		return FAILURE
-
 

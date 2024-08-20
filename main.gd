@@ -43,7 +43,7 @@ func _process(delta):
 	# if enemy or player dies...
 	if Globals.enemyHealth < 1:
 		#update fights won, spawn a new enemy with increased health
-		enemy_sword.play("death")
+		play_enemy_anim("death")
 		player.fights_won += 1
 		enemy.spawn_enemy(player.fights_won)
 		if player.fights_won % 3 == 0: # give the player a potion every 3 wins
@@ -118,8 +118,7 @@ func play(player_move):
 	
 	# Handle enemy move
 	var enemy_move = Globals.enemyMove
-	
-	
+	#print(enemy_move)
 	#enemy_sword.play(enemy_move) # Play enemy attack animation
 	play_enemy_anim(enemy_move)
 	
@@ -138,7 +137,7 @@ func resolve(player_move, enemy_move):
 	########################
 	# perform potions and stamina costs
 	if player_move == "Potion":
-		Globals.playerHealth += 10
+		Globals.playerHealth += Globals.potionHeal
 		Globals.playerPotions -= 1
 		if Globals.playerHealth > 100:
 			Globals.playerHealth = 100
@@ -168,7 +167,7 @@ func resolve(player_move, enemy_move):
 
 	#same for enemy
 	if enemy_move == "Potion": #take this out if enemies do not have potions. maybe bosses have them?
-		Globals.enemyHealth += 10
+		Globals.enemyHealth += Globals.potionHeal
 		Globals.enemyPotions -= 1
 		if Globals.enemyHealth > 100:
 			Globals.enemyHealth = 100

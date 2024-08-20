@@ -41,8 +41,8 @@ var unblockable_moves = ["Spin Attack", "Break Shield"]
 #
 #
 
+# Animation for the enemy
 var enemyAnimation = "idle"
-
 
 # Player Attributes
 var playerHealth
@@ -64,3 +64,5 @@ var enemyBleedTurns
 var enemyPotions
 
 var enemyMove # The move the enemy will choose
+
+var potionHeal = 10 #the amount of health restored by a potion

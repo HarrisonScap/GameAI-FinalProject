@@ -1,7 +1,7 @@
-class_name attack1Check extends ConditionLeaf
+class_name d2_checkMove3 extends ConditionLeaf
 
 func tick(actor: Node, _blackboard: Blackboard) -> int:
-	var attack = Globals.weapons[Globals.enemyWeapon].keys()[0]
+	var attack = Globals.weapons[Globals.enemyWeapon].keys()[2]
 	var stamina_cost = Globals.weapons[Globals.enemyWeapon][attack]["Stamina"]
 	
 	var AI_attack_damage = Globals.weapons[Globals.enemyWeapon][attack]["damage"]
@@ -11,5 +11,3 @@ func tick(actor: Node, _blackboard: Blackboard) -> int:
 		return SUCCESS
 	else:
 		return FAILURE
-
-
