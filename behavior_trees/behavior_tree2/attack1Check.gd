@@ -7,7 +7,7 @@ func tick(actor: Node, _blackboard: Blackboard) -> int:
 	var AI_attack_damage = Globals.weapons[Globals.enemyWeapon][attack]["damage"]
 
 
-	if Globals.enemyStamina > stamina_cost:
+	if Globals.enemyStamina > stamina_cost && Globals.playerHealth <= AI_attack_damage:
 		return SUCCESS
 	else:
 		return FAILURE
