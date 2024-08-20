@@ -22,6 +22,8 @@ extends Node3D
 # Enemy Gladiators # (A Bit Janky but its gonna work I promise)
 @onready var enemy_sword = $sword_gladiator_finished
 @onready var enemy_spear = $spear_gladiator_finished
+@onready var enemy_mace = $mace_gladiator_finished
+
 
 # Label #
 @onready var label = $Control/resolve
@@ -54,12 +56,16 @@ func _process(delta):
 	if Globals.enemyWeapon == "Sword":
 		enemy_sword.visible = true
 		enemy_spear.visible = false
-		#enemy_mace.visible = false
+		enemy_mace.visible = false
 	elif Globals.enemyWeapon == "Spear and Shield":
 		enemy_sword.visible = false
 		enemy_spear.visible = true
-		#enemy_mace.visible = false
-	
+		enemy_mace.visible = false
+	else:
+		enemy_sword.visible = false
+		enemy_spear.visible = false
+		enemy_mace.visible = true
+			
 	
 	# Block
 	if Globals.playerStamina < 25 or Globals.playerStun:
@@ -101,8 +107,7 @@ func play_enemy_anim(enemy_move):
 	elif Globals.enemyWeapon == "Spear and Shield":
 		enemy_spear.play(enemy_move)
 	else:
-		pass
-		#enemy_mace.play(enemy_move) #not yet implemented
+		enemy_mace.play(enemy_move) #not yet implemented
 
 
 
