@@ -5,6 +5,10 @@ extends Node2D
 
 @onready var player = $"../Player"
 
+# Different Gladiators 
+@onready var enemy_sword = $"../../sword_gladiator_finished"
+
+
 # Name of enemy
 var enemy_name
 
@@ -73,8 +77,11 @@ func spawn_enemy(fights_won):
 	Globals.enemyStamina = 100
 	enemy_name = generate_name()
 	label.text = enemy_name + "\n" + "Health: " + str(Globals.enemyHealth)
-	Globals.enemyWeapon = ["Sword", "Spear and Shield", "Mace"].pick_random()
-
+	#Globals.enemyWeapon = ["Sword", "Spear and Shield", "Mace"].pick_random()
+	# Temporary testing change
+	Globals.enemyWeapon = "Sword"
+	
+	
 # On game load, generates enemy name and forms the label
 func _ready():
 	spawn_enemy(player.fights_won)

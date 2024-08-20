@@ -3,10 +3,10 @@
 [ext_resource type="Script" path="res://Enemy.gd" id="1_cccd8"]
 [ext_resource type="PackedScene" uid="uid://b36ufns1mo2kc" path="res://assets/gltf/arena/arena.gltf" id="1_nenmy"]
 [ext_resource type="Script" path="res://main.gd" id="1_ygpgh"]
-[ext_resource type="PackedScene" uid="uid://b30ksp1eqoj28" path="res://assets/gltf/dummy/dummy.gltf" id="2_8f48e"]
 [ext_resource type="Script" path="res://Continue.gd" id="2_afuai"]
 [ext_resource type="Script" path="res://Player.gd" id="2_pk0yy"]
 [ext_resource type="PackedScene" uid="uid://bpa5ll5ia5u6w" path="res://behavior_trees/behavior_tree1/enemy_tree1.tscn" id="5_sxouq"]
+[ext_resource type="PackedScene" uid="uid://cll1wpt3smqb6" path="res://assets/enemies/sword/sword_gladiator.tscn" id="8_iyplt"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_nvopg"]
 sky_top_color = Color(0.658493, 0.342203, 0.325236, 1)
@@ -32,6 +32,7 @@ environment = SubResource("Environment_g1lyf")
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.512, 3.959, 7.332)
+current = true
 fov = 33.3
 size = 5.374
 near = 0.165
@@ -119,7 +120,7 @@ metadata/_edit_use_anchors_ = true
 script = ExtResource("1_cccd8")
 
 [node name="BeehaveTree" parent="Control/Enemy" node_paths=PackedStringArray("blackboard") instance=ExtResource("5_sxouq")]
-blackboard = NodePath("@Node@17511")
+blackboard = NodePath("@Node@39954")
 
 [node name="Enemy Information" type="Label" parent="Control/Enemy"]
 offset_left = 999.0
@@ -130,11 +131,8 @@ text = "Enemy
 Health: 50
 "
 
-[node name="dummy" parent="." instance=ExtResource("2_8f48e")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.313, 1.605, -4.074)
-
-[node name="dummy2" parent="." instance=ExtResource("2_8f48e")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.168, 1.605, 2.831)
+[node name="sword_gladiator_finished" parent="." instance=ExtResource("8_iyplt")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.97793, 2.15734, -2.85442)
 
 [node name="arena" parent="." instance=ExtResource("1_nenmy")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.52055, 1.62225, -1.03656)

@@ -41,6 +41,8 @@ var unblockable_moves = ["Spin Attack", "Break Shield"]
 #
 #
 
+var enemyAnimation = "idle"
+
 
 # Player Attributes
 var playerHealth

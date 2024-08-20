@@ -19,6 +19,10 @@ extends Node3D
 @onready var pass_button = $Control/Player/Pass
 @onready var continue_button = $Control/Continue
 
+# Enemy Gladiators # (A Bit Janky but its gonna work I promise)
+@onready var enemy_sword = $sword_gladiator_finished
+
+
 # Label #
 @onready var label = $Control/resolve
 
@@ -37,6 +41,7 @@ func _process(delta):
 	# if enemy or player dies...
 	if Globals.enemyHealth < 1:
 		#update fights won, spawn a new enemy with increased health
+		enemy_sword.play("death")
 		player.fights_won += 1
 		enemy.spawn_enemy(player.fights_won)
 		if player.fights_won % 3 == 0: # give the player a potion every 3 wins
@@ -85,10 +90,15 @@ func _process(delta):
 # Called by the whatever button the player clicks, gets the enemy move and then calls
 # resolve() to play out the game
 func play(player_move):
-	#var enemy_move = enemy.choose_move()
+	
+	
+	# Handle enemy move
 	var enemy_move = Globals.enemyMove
+	enemy_sword.play(enemy_move) # Play enemy attack animation
 	print("Enemy chooses " + str(enemy_move))
-	resolve(player_move, enemy_move)
+	
+	resolve(player_move, enemy_move) # Resolve conflict
+	
 	game_round += 1
 
 # Handles all the game logic regarding what moves do what -- we may wana think of
@@ -131,7 +141,7 @@ func resolve(player_move, enemy_move):
 	#same for enemy
 	if enemy_move == "Potion": #take this out if enemies do not have potions. maybe bosses have them?
 		Globals.enemyHealth += 10
-		enemy.potions -= 1
+		Globals.enemyPotions -= 1
 		if Globals.enemyHealth > 100:
 			Globals.enemyHealth = 100
 	elif enemy_move == "Pass":
