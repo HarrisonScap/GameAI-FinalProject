@@ -20,12 +20,12 @@
 [ext_resource type="Script" path="res://behavior_trees/Medium/d2_checkMove3.gd" id="17_ftkhn"]
 [ext_resource type="Script" path="res://behavior_trees/Medium/d2_checkBlock.gd" id="18_u3b46"]
 [ext_resource type="Script" path="res://behavior_trees/Medium/d2_Block.gd" id="19_jp4qk"]
-[ext_resource type="Script" path="res://behavior_trees/Medium/d2_forcePass.gd" id="20_6nl2u"]
+[ext_resource type="Script" path="res://behavior_trees/Medium/d3_forcePass.gd" id="21_buamf"]
 
 [node name="BehaviorTree3" type="Node" node_paths=PackedStringArray("blackboard", "actor")]
 script = ExtResource("1_0ugmx")
-blackboard = NodePath("@Node@73492")
-actor = NodePath("")
+blackboard = NodePath("@Node@50441")
+actor = NodePath("..")
 
 [node name="d2_selector" type="Node" parent="."]
 script = ExtResource("2_r8lq5")
@@ -60,13 +60,13 @@ script = ExtResource("5_a7hc8")
 [node name="d2_Attack2" type="Node" parent="d2_selector/d2_killMovesPotionSel/SequenceComposite3"]
 script = ExtResource("6_x7lrh")
 
-[node name="SequenceComposite4" type="Node" parent="d2_selector/d2_killMovesPotionSel"]
+[node name="SequenceComposite4" type="Node" parent="d2_selector"]
 script = ExtResource("3_p07a7")
 
-[node name="d2_checkHealthPotion" type="Node" parent="d2_selector/d2_killMovesPotionSel/SequenceComposite4"]
+[node name="d2_checkHealthPotion" type="Node" parent="d2_selector/SequenceComposite4"]
 script = ExtResource("9_puuvf")
 
-[node name="d2_usePotion" type="Node" parent="d2_selector/d2_killMovesPotionSel/SequenceComposite4"]
+[node name="d2_usePotion" type="Node" parent="d2_selector/SequenceComposite4"]
 script = ExtResource("10_88m1h")
 
 [node name="d2_killMovesSel" type="Node" parent="d2_selector"]
@@ -138,5 +138,5 @@ script = ExtResource("18_u3b46")
 [node name="d2_Block" type="Node" parent="d2_selector/d2_randomMovesSeq/SequenceComposite4"]
 script = ExtResource("19_jp4qk")
 
-[node name="d2_forcePass" type="Node" parent="d2_selector"]
-script = ExtResource("20_6nl2u")
+[node name="d3_forcePass" type="Node" parent="d2_selector"]
+script = ExtResource("21_buamf")

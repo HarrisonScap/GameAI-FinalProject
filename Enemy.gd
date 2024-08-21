@@ -8,15 +8,18 @@ extends Node2D
 
 # Different Gladiators 
 @onready var enemy_sword = $"../../sword_gladiator_finished"
+@onready var enemy_spear = $"../../spear_gladiator_finished"
+@onready var enemy_mace = $"../../mace_gladiator_finished"
 
 # Enemy "Buttons
 @onready var attack1 = $"Attack1"
 @onready var attack2 = $"Attack2"
 @onready var attack3 = $"Attack3"
 
-@onready var easy_tree = $"BeehaveTree"
-
-@onready var medium_tree = $"BeehaveTree2"
+# Behavior tree difficulties
+@onready var easy_tree = $EasyTree
+@onready var medium_tree = $MediumTree
+@onready var hard_tree = $HardTree
 
 # Name of enemy
 var enemy_name
@@ -80,14 +83,25 @@ func choose_move():
 		moves.append(key)
 	return moves.pick_random()
 
+func play_enemy_anim(enemy_move):
+	if Globals.enemyWeapon == "Sword":
+		enemy_sword.play(enemy_move)
+	elif Globals.enemyWeapon == "Spear and Shield":
+		enemy_spear.play(enemy_move)
+	else:
+		enemy_mace.play(enemy_move) 
+
 # Spawns an enemy with increased health based on fights won by player
 func spawn_enemy(fights_won):
+	choose_difficulty(fights_won)
 	Globals.enemyHealth = 100 + (5 * fights_won)
 	Globals.enemyStamina = 100
 	enemy_name = generate_name()
 	label.text = enemy_name + "\n" + "Health: " + str(Globals.enemyHealth)
 	Globals.enemyWeapon = ["Sword", "Spear and Shield", "Mace"].pick_random()
-
+	await get_tree().create_timer(1).timeout
+	play_enemy_anim("idle")
+	
 	# Set their buttons up in the UI
 	var attack_moves = Globals.weapons[Globals.enemyWeapon].keys() # 3 moves
 	attack1.text = attack_moves[0] + "\nStamina Cost: " + str(Globals.weapons[Globals.enemyWeapon][attack_moves[0]]["Stamina"])
@@ -97,13 +111,14 @@ func spawn_enemy(fights_won):
 	
 # On game load, generates enemy name and forms the label
 func _ready():
-	spawn_enemy(player.fights_won)
 	Globals.enemyStun = false
 	Globals.enemyBleed = false
 	Globals.enemyBleedTurns = 0
 	Globals.enemyPotions = 1
 	easy_tree.enabled = false
 	medium_tree.enabled = false
+	hard_tree.enabled = false
+	spawn_enemy(player.fights_won)
 
 # chooses the difficulty of the new enemy based on the number of fights won
 func choose_difficulty(fights_won):
@@ -117,8 +132,7 @@ func choose_difficulty(fights_won):
 	elif random_difficulty < medium:
 		medium_tree.enabled = true
 	else:
-		pass
-		#hard_tree.start()
+		hard_tree.enabled = true
 		
 
 func _on_attack_1_mouse_entered():

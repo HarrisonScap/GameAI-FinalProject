@@ -1,14 +1,15 @@
-[gd_scene load_steps=15 format=3 uid="uid://bm3ip2d6pqnxj"]
+[gd_scene load_steps=16 format=3 uid="uid://bm3ip2d6pqnxj"]
 
 [ext_resource type="Script" path="res://Enemy.gd" id="1_cccd8"]
 [ext_resource type="PackedScene" uid="uid://b36ufns1mo2kc" path="res://assets/gltf/arena/arena.gltf" id="1_nenmy"]
 [ext_resource type="Script" path="res://main.gd" id="1_ygpgh"]
 [ext_resource type="Script" path="res://Continue.gd" id="2_afuai"]
 [ext_resource type="Script" path="res://Player.gd" id="2_pk0yy"]
+[ext_resource type="Script" path="res://AudioStreamPlayer.gd" id="2_x04g8"]
 [ext_resource type="PackedScene" uid="uid://did0pebisd104" path="res://behavior_trees/Medium/behavior_tree3.tscn" id="5_01pq8"]
 [ext_resource type="PackedScene" uid="uid://bpa5ll5ia5u6w" path="res://behavior_trees/behavior_tree1/enemy_tree1.tscn" id="5_sxouq"]
-[ext_resource type="Script" path="res://addons/beehave/nodes/beehave_tree.gd" id="6_781yn"]
 [ext_resource type="PackedScene" uid="uid://dfvi5g6768upw" path="res://assets/enemies/spear/spear_gladiator.tscn" id="7_b8x4m"]
+[ext_resource type="PackedScene" uid="uid://b8hcf48bir3wy" path="res://behavior_trees/Hard/hard_tree.tscn" id="8_ftcwc"]
 [ext_resource type="PackedScene" uid="uid://cll1wpt3smqb6" path="res://assets/enemies/sword/sword_gladiator.tscn" id="8_iyplt"]
 [ext_resource type="PackedScene" uid="uid://cyapoxdlg464s" path="res://assets/enemies/mace/mace_gladiator_finished.tscn" id="8_vm13h"]
 
@@ -26,6 +27,9 @@ sdfgi_use_occlusion = true
 
 [node name="Node3D" type="Node3D"]
 script = ExtResource("1_ygpgh")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+script = ExtResource("2_x04g8")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.384263, 0.144695, -0.911814, -4.44089e-16, 0.987642, 0.156728, 0.923224, -0.0602246, 0.379514, 7.24798, 13.6018, 8.73694)
@@ -130,29 +134,16 @@ offset_bottom = 609.0
 [node name="Enemy" type="Node2D" parent="Control"]
 script = ExtResource("1_cccd8")
 
-[node name="BehaviorTree3" parent="Control/Enemy" node_paths=PackedStringArray("blackboard", "actor") instance=ExtResource("5_01pq8")]
-blackboard = NodePath("@Node@17503")
-actor = NodePath("..")
-
-[node name="BeehaveTree" parent="Control/Enemy" node_paths=PackedStringArray("blackboard", "actor") instance=ExtResource("5_sxouq")]
+[node name="EasyTree" parent="Control/Enemy" node_paths=PackedStringArray("blackboard", "actor") instance=ExtResource("5_sxouq")]
 enabled = false
-blackboard = NodePath("@Node@17504")
+blackboard = NodePath("@Node@20997")
 actor = NodePath("..")
 
-[node name="Enemy Information" type="Label" parent="Control/Enemy"]
-offset_left = 931.0
-offset_top = 16.0
-offset_right = 1020.0
-offset_bottom = 72.0
-text = "Enemy
-Health: 50
-"
+[node name="MediumTree" parent="Control/Enemy" node_paths=PackedStringArray("blackboard") instance=ExtResource("5_01pq8")]
+blackboard = NodePath("@Node@20998")
 
-[node name="BeehaveTree2" type="Node" parent="Control/Enemy" node_paths=PackedStringArray("blackboard", "actor")]
-script = ExtResource("6_781yn")
-enabled = false
-blackboard = NodePath("@Node@17505")
-actor = NodePath("..")
+[node name="HardTree" parent="Control/Enemy" node_paths=PackedStringArray("blackboard") instance=ExtResource("8_ftcwc")]
+blackboard = NodePath("@Node@20999")
 
 [node name="Attack1" type="Button" parent="Control/Enemy"]
 offset_left = 1008.0
@@ -174,6 +165,15 @@ offset_top = 273.0
 offset_right = 1131.0
 offset_bottom = 332.0
 disabled = true
+
+[node name="Enemy Information" type="Label" parent="Control/Enemy"]
+offset_left = 931.0
+offset_top = 16.0
+offset_right = 1020.0
+offset_bottom = 72.0
+text = "Enemy
+Health: 50
+"
 
 [node name="Enemy Attack Info" type="Label" parent="Control/Enemy"]
 offset_left = 238.0

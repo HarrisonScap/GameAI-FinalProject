@@ -8,6 +8,9 @@ extends Node3D
 # Controls #
 ############
 
+# Sounds
+@onready var attack_sound_player = $attack_sound_player  # Reference the AudioStreamPlayer node
+
 # Attacks
 @onready var attack1_button = $Control/Player/Attack
 @onready var attack2_button = $Control/Player/Attack2
@@ -32,9 +35,6 @@ extends Node3D
 var game_round = 1
 var attack_moves
 
-#this function will wait seconds before continuing
-func wait(seconds: float) -> void:
-	await get_tree().create_timer(seconds).timeout
 
 func _ready():
 	attack_moves = Globals.weapons[Globals.playerWeapon].keys() # 3 moves
@@ -45,12 +45,16 @@ func _ready():
 
 func _process(delta):
 	# if enemy or player dies...
-	if Globals.enemyHealth < 1:
+	if Globals.enemyHealth < 1 and Globals.enemyHealth != -100:
 		#update fights won, spawn a new enemy with increased health
 		Globals.playerHealth = 100
+		Globals.playerStamina = 100
+		Globals.enemyHealth = -100
 		
 		# Await animation
 		play_enemy_anim("death")
+		await get_tree().create_timer(5).timeout
+		
 		
 		player.fights_won += 1
 		enemy.spawn_enemy(player.fights_won)
@@ -58,7 +62,7 @@ func _process(delta):
 			Globals.playerPotions += 1
 	elif Globals.playerHealth < 1:
 		get_tree().change_scene_to_file("res://mainmenu.tscn")  # add scene for the main menu (.tscn)
-	
+		
 	# **Potentially Temporary**
 	# Shows the enemy model that you're currently facing and hides the others
 	if Globals.enemyWeapon == "Sword":
@@ -122,7 +126,13 @@ func play_enemy_anim(enemy_move):
 # Called by the whatever button the player clicks, gets the enemy move and then calls
 # resolve() to play out the game
 func play(player_move):
-	
+	#
+	#var sound_path = Globals.weapons[Globals.playerWeapon][player_move]["sound"]
+	#var sound_stream = load(sound_path)
+	#
+	#if sound_stream != null:
+		#attack_sound_player.stream = sound_stream
+		#attack_sound_player.play()
 	
 	# Handle enemy move
 	var enemy_move = Globals.enemyMove
@@ -189,16 +199,6 @@ func resolve(player_move, enemy_move):
 	else:
 		# Index into  weapon dictionary and remove stamina from enemy
 		Globals.enemyStamina -= Globals.weapons[Globals.enemyWeapon][enemy_move]["Stamina"]
-
-
-	###############################
-	# Check all conditional Moves #
-	###############################
-
-	#if player move = swing & enemymove = reposte retrun true
-	#if playermove = swing & enemymove = block return true
-	#if playermove = 
-	# if conditions_met():
 	
 
 	# check if one person is blocking

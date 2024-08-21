@@ -1,0 +1,223 @@
+[gd_scene load_steps=31 format=3 uid="uid://b8hcf48bir3wy"]
+
+[ext_resource type="Script" path="res://addons/beehave/nodes/beehave_tree.gd" id="1_8dkcy"]
+[ext_resource type="Script" path="res://addons/beehave/nodes/composites/selector.gd" id="2_la6b6"]
+[ext_resource type="Script" path="res://addons/beehave/nodes/composites/sequence.gd" id="3_i0hxb"]
+[ext_resource type="Script" path="res://behavior_trees/Hard/d3_checkKillMovePotion1.gd" id="4_ir5i6"]
+[ext_resource type="Script" path="res://behavior_trees/Hard/d3_Attack1.gd" id="5_koa7o"]
+[ext_resource type="Script" path="res://behavior_trees/Hard/d3_checkKillMovePotion2.gd" id="6_p7k8o"]
+[ext_resource type="Script" path="res://behavior_trees/Hard/d3_Attack2.gd" id="7_8g5b2"]
+[ext_resource type="Script" path="res://behavior_trees/Hard/d3_checkKillMovePotion3.gd" id="8_851bp"]
+[ext_resource type="Script" path="res://behavior_trees/Hard/d3_Attack3.gd" id="9_alivw"]
+[ext_resource type="Script" path="res://behavior_trees/Hard/d3_checkHealthPotion.gd" id="10_qbldb"]
+[ext_resource type="Script" path="res://behavior_trees/Hard/d3_usePotion.gd" id="11_73824"]
+[ext_resource type="Script" path="res://behavior_trees/Hard/d3_checkKillMove1.gd" id="12_fdcqp"]
+[ext_resource type="Script" path="res://behavior_trees/Hard/d3_checkKillMove2.gd" id="13_0ccy0"]
+[ext_resource type="Script" path="res://behavior_trees/Hard/d3_checkKillMove3.gd" id="14_fxf5j"]
+[ext_resource type="Script" path="res://behavior_trees/Hard/d3_playerHasKillMove.gd" id="15_f6mur"]
+[ext_resource type="Script" path="res://behavior_trees/Hard/d3_checkSword.gd" id="16_lewfo"]
+[ext_resource type="Script" path="res://behavior_trees/Hard/d3_Riposte.gd" id="17_jl6b1"]
+[ext_resource type="Script" path="res://behavior_trees/Hard/d3_checkSpear.gd" id="18_32y1o"]
+[ext_resource type="Script" path="res://behavior_trees/Hard/d3_shieldBlock.gd" id="19_wdnp7"]
+[ext_resource type="Script" path="res://behavior_trees/Hard/d3_defaultBlock.gd" id="20_wabh4"]
+[ext_resource type="Script" path="res://behavior_trees/Hard/d3_playerStaminaZero.gd" id="21_72qcy"]
+[ext_resource type="Script" path="res://behavior_trees/Hard/d3_enoughStamina.gd" id="22_qqgmy"]
+[ext_resource type="Script" path="res://behavior_trees/Hard/d3_highestDamageMove.gd" id="23_dedro"]
+[ext_resource type="Script" path="res://behavior_trees/Hard/d3_playerWillAttack.gd" id="24_d677j"]
+[ext_resource type="Script" path="res://behavior_trees/Hard/d3_checkBlock.gd" id="25_f15an"]
+[ext_resource type="Script" path="res://addons/beehave/nodes/composites/selector_random.gd" id="25_l1n83"]
+[ext_resource type="Script" path="res://behavior_trees/Hard/d3_checkMove1.gd" id="26_ljys2"]
+[ext_resource type="Script" path="res://behavior_trees/Hard/d3_checkMove2.gd" id="27_oi6rd"]
+[ext_resource type="Script" path="res://behavior_trees/Hard/d3_checkMove3.gd" id="28_eakc4"]
+[ext_resource type="Script" path="res://behavior_trees/Hard/d3_forcePass.gd" id="30_ky8b8"]
+
+[node name="HardTree" type="Node" node_paths=PackedStringArray("blackboard", "actor")]
+script = ExtResource("1_8dkcy")
+blackboard = NodePath("@Node@17515")
+actor = NodePath("")
+
+[node name="d3_selector" type="Node" parent="."]
+script = ExtResource("2_la6b6")
+
+[node name="d3_killMovesPotionSel" type="Node" parent="d3_selector"]
+script = ExtResource("2_la6b6")
+
+[node name="SequenceComposite" type="Node" parent="d3_selector/d3_killMovesPotionSel"]
+script = ExtResource("3_i0hxb")
+
+[node name="d3_checkKillMovePotion1" type="Node" parent="d3_selector/d3_killMovesPotionSel/SequenceComposite"]
+script = ExtResource("4_ir5i6")
+
+[node name="d3_Attack1" type="Node" parent="d3_selector/d3_killMovesPotionSel/SequenceComposite"]
+script = ExtResource("5_koa7o")
+
+[node name="SequenceComposite2" type="Node" parent="d3_selector/d3_killMovesPotionSel"]
+script = ExtResource("3_i0hxb")
+
+[node name="d3_checkKillMovePotion2" type="Node" parent="d3_selector/d3_killMovesPotionSel/SequenceComposite2"]
+script = ExtResource("6_p7k8o")
+
+[node name="d3_Attack2" type="Node" parent="d3_selector/d3_killMovesPotionSel/SequenceComposite2"]
+script = ExtResource("7_8g5b2")
+
+[node name="SequenceComposite3" type="Node" parent="d3_selector/d3_killMovesPotionSel"]
+script = ExtResource("3_i0hxb")
+
+[node name="d3_checkKillMovePotion3" type="Node" parent="d3_selector/d3_killMovesPotionSel/SequenceComposite3"]
+script = ExtResource("8_851bp")
+
+[node name="d3_Attack3" type="Node" parent="d3_selector/d3_killMovesPotionSel/SequenceComposite3"]
+script = ExtResource("9_alivw")
+
+[node name="d3_PotionSequence" type="Node" parent="d3_selector"]
+script = ExtResource("3_i0hxb")
+
+[node name="d3_checkHealthPotion" type="Node" parent="d3_selector/d3_PotionSequence"]
+script = ExtResource("10_qbldb")
+
+[node name="d3_usePotion" type="Node" parent="d3_selector/d3_PotionSequence"]
+script = ExtResource("11_73824")
+
+[node name="d3_killMovesSel" type="Node" parent="d3_selector"]
+script = ExtResource("2_la6b6")
+
+[node name="SequenceComposite" type="Node" parent="d3_selector/d3_killMovesSel"]
+script = ExtResource("3_i0hxb")
+
+[node name="d3_checkKillMove1" type="Node" parent="d3_selector/d3_killMovesSel/SequenceComposite"]
+script = ExtResource("12_fdcqp")
+
+[node name="d3_Attack1" type="Node" parent="d3_selector/d3_killMovesSel/SequenceComposite"]
+script = ExtResource("5_koa7o")
+
+[node name="SequenceComposite2" type="Node" parent="d3_selector/d3_killMovesSel"]
+script = ExtResource("3_i0hxb")
+
+[node name="d3_checkKillMove2" type="Node" parent="d3_selector/d3_killMovesSel/SequenceComposite2"]
+script = ExtResource("13_0ccy0")
+
+[node name="d3_Attack2" type="Node" parent="d3_selector/d3_killMovesSel/SequenceComposite2"]
+script = ExtResource("7_8g5b2")
+
+[node name="SequenceComposite3" type="Node" parent="d3_selector/d3_killMovesSel"]
+script = ExtResource("3_i0hxb")
+
+[node name="d3_checkKillMove3" type="Node" parent="d3_selector/d3_killMovesSel/SequenceComposite3"]
+script = ExtResource("14_fxf5j")
+
+[node name="d3_Attack3" type="Node" parent="d3_selector/d3_killMovesSel/SequenceComposite3"]
+script = ExtResource("9_alivw")
+
+[node name="d3_BlockKillMoveSeq" type="Node" parent="d3_selector"]
+script = ExtResource("3_i0hxb")
+
+[node name="d3_playerHasKillMove" type="Node" parent="d3_selector/d3_BlockKillMoveSeq"]
+script = ExtResource("15_f6mur")
+
+[node name="SelectorComposite" type="Node" parent="d3_selector/d3_BlockKillMoveSeq"]
+script = ExtResource("2_la6b6")
+
+[node name="SequenceComposite" type="Node" parent="d3_selector/d3_BlockKillMoveSeq/SelectorComposite"]
+script = ExtResource("3_i0hxb")
+
+[node name="d3_checkSword" type="Node" parent="d3_selector/d3_BlockKillMoveSeq/SelectorComposite/SequenceComposite"]
+script = ExtResource("16_lewfo")
+
+[node name="d3_Riposte" type="Node" parent="d3_selector/d3_BlockKillMoveSeq/SelectorComposite/SequenceComposite"]
+script = ExtResource("17_jl6b1")
+
+[node name="SequenceComposite2" type="Node" parent="d3_selector/d3_BlockKillMoveSeq/SelectorComposite"]
+script = ExtResource("3_i0hxb")
+
+[node name="d3_checkSpear" type="Node" parent="d3_selector/d3_BlockKillMoveSeq/SelectorComposite/SequenceComposite2"]
+script = ExtResource("18_32y1o")
+
+[node name="d3_shieldBlock" type="Node" parent="d3_selector/d3_BlockKillMoveSeq/SelectorComposite/SequenceComposite2"]
+script = ExtResource("19_wdnp7")
+
+[node name="d3_defaultBlock" type="Node" parent="d3_selector/d3_BlockKillMoveSeq/SelectorComposite"]
+script = ExtResource("20_wabh4")
+
+[node name="d3_strikeWeakEnemy" type="Node" parent="d3_selector"]
+script = ExtResource("3_i0hxb")
+
+[node name="d3_playerStaminaZero" type="Node" parent="d3_selector/d3_strikeWeakEnemy"]
+script = ExtResource("21_72qcy")
+
+[node name="SequenceComposite" type="Node" parent="d3_selector/d3_strikeWeakEnemy"]
+script = ExtResource("3_i0hxb")
+
+[node name="d3_enoughStamina" type="Node" parent="d3_selector/d3_strikeWeakEnemy/SequenceComposite"]
+script = ExtResource("22_qqgmy")
+
+[node name="d3_highestDamageMove" type="Node" parent="d3_selector/d3_strikeWeakEnemy/SequenceComposite"]
+script = ExtResource("23_dedro")
+
+[node name="d3_predictiveBlock" type="Node" parent="d3_selector"]
+script = ExtResource("3_i0hxb")
+
+[node name="d3_playerWillAttack" type="Node" parent="d3_selector/d3_predictiveBlock"]
+script = ExtResource("24_d677j")
+
+[node name="SelectorComposite" type="Node" parent="d3_selector/d3_predictiveBlock"]
+script = ExtResource("2_la6b6")
+
+[node name="SequenceComposite" type="Node" parent="d3_selector/d3_predictiveBlock/SelectorComposite"]
+script = ExtResource("3_i0hxb")
+
+[node name="d3_checkSword" type="Node" parent="d3_selector/d3_predictiveBlock/SelectorComposite/SequenceComposite"]
+script = ExtResource("16_lewfo")
+
+[node name="d3_Riposte" type="Node" parent="d3_selector/d3_predictiveBlock/SelectorComposite/SequenceComposite"]
+script = ExtResource("17_jl6b1")
+
+[node name="SequenceComposite2" type="Node" parent="d3_selector/d3_predictiveBlock/SelectorComposite"]
+script = ExtResource("3_i0hxb")
+
+[node name="d3_checkSpear" type="Node" parent="d3_selector/d3_predictiveBlock/SelectorComposite/SequenceComposite2"]
+script = ExtResource("18_32y1o")
+
+[node name="d3_shieldBlock" type="Node" parent="d3_selector/d3_predictiveBlock/SelectorComposite/SequenceComposite2"]
+script = ExtResource("19_wdnp7")
+
+[node name="SequenceComposite3" type="Node" parent="d3_selector/d3_predictiveBlock/SelectorComposite"]
+script = ExtResource("3_i0hxb")
+
+[node name="d3_checkBlock" type="Node" parent="d3_selector/d3_predictiveBlock/SelectorComposite/SequenceComposite3"]
+script = ExtResource("25_f15an")
+
+[node name="d3_defaultBlock" type="Node" parent="d3_selector/d3_predictiveBlock/SelectorComposite/SequenceComposite3"]
+script = ExtResource("20_wabh4")
+
+[node name="d3_randomMovesSeq" type="Node" parent="d3_selector"]
+script = ExtResource("25_l1n83")
+
+[node name="SequenceComposite" type="Node" parent="d3_selector/d3_randomMovesSeq"]
+script = ExtResource("3_i0hxb")
+
+[node name="d3_checkMove1" type="Node" parent="d3_selector/d3_randomMovesSeq/SequenceComposite"]
+script = ExtResource("26_ljys2")
+
+[node name="d3_Attack1" type="Node" parent="d3_selector/d3_randomMovesSeq/SequenceComposite"]
+script = ExtResource("5_koa7o")
+
+[node name="SequenceComposite2" type="Node" parent="d3_selector/d3_randomMovesSeq"]
+script = ExtResource("3_i0hxb")
+
+[node name="d3_checkMove2" type="Node" parent="d3_selector/d3_randomMovesSeq/SequenceComposite2"]
+script = ExtResource("27_oi6rd")
+
+[node name="d3_Attack2" type="Node" parent="d3_selector/d3_randomMovesSeq/SequenceComposite2"]
+script = ExtResource("7_8g5b2")
+
+[node name="SequenceComposite3" type="Node" parent="d3_selector/d3_randomMovesSeq"]
+script = ExtResource("3_i0hxb")
+
+[node name="d3_checkMove3" type="Node" parent="d3_selector/d3_randomMovesSeq/SequenceComposite3"]
+script = ExtResource("28_eakc4")
+
+[node name="d3_Attack3" type="Node" parent="d3_selector/d3_randomMovesSeq/SequenceComposite3"]
+script = ExtResource("9_alivw")
+
+[node name="d3_forcePass" type="Node" parent="d3_selector"]
+script = ExtResource("30_ky8b8")
