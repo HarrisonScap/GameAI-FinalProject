@@ -131,12 +131,12 @@ offset_bottom = 609.0
 script = ExtResource("1_cccd8")
 
 [node name="BehaviorTree3" parent="Control/Enemy" node_paths=PackedStringArray("blackboard", "actor") instance=ExtResource("5_01pq8")]
-blackboard = NodePath("@Node@73357")
+blackboard = NodePath("@Node@17503")
 actor = NodePath("..")
 
 [node name="BeehaveTree" parent="Control/Enemy" node_paths=PackedStringArray("blackboard", "actor") instance=ExtResource("5_sxouq")]
 enabled = false
-blackboard = NodePath("@Node@73358")
+blackboard = NodePath("@Node@17504")
 actor = NodePath("..")
 
 [node name="Enemy Information" type="Label" parent="Control/Enemy"]
@@ -151,7 +151,7 @@ Health: 50
 [node name="BeehaveTree2" type="Node" parent="Control/Enemy" node_paths=PackedStringArray("blackboard", "actor")]
 script = ExtResource("6_781yn")
 enabled = false
-blackboard = NodePath("@Node@73359")
+blackboard = NodePath("@Node@17505")
 actor = NodePath("..")
 
 [node name="Attack1" type="Button" parent="Control/Enemy"]

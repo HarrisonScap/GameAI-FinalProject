@@ -1,7 +1,11 @@
 extends Node3D
 
 #@onready var game = $Control/main
+@onready var music = $AudioStreamPlayer
 
+func _process(delta):
+	if !music.playing:
+		music.play()
 
 func _on_weapon_1_pressed():
 	Globals.playerWeapon = "Sword"

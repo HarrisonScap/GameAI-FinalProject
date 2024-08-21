@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://dp3ievo5x0fj4"]
+[gd_scene load_steps=10 format=3 uid="uid://dp3ievo5x0fj4"]
 
 [ext_resource type="Script" path="res://mainmenu.gd" id="1_ba8xa"]
 [ext_resource type="PackedScene" uid="uid://b36ufns1mo2kc" path="res://assets/gltf/arena/arena.gltf" id="2_1ro43"]
@@ -8,6 +8,7 @@
 [ext_resource type="Script" path="res://assets/gltf/mace/mace_menu.gd" id="6_cn02t"]
 [ext_resource type="PackedScene" uid="uid://bhwdcyofeir3h" path="res://assets/gltf/spear/spear_menu.gltf" id="7_fi1i7"]
 [ext_resource type="Script" path="res://assets/gltf/spear/spear_menu.gd" id="8_vlq63"]
+[ext_resource type="AudioStream" uid="uid://dpiikg5fwu1d3" path="res://assets/audio/733259__jadis0x__simple-video-game-music-loop.wav" id="9_4b1wn"]
 
 [node name="Mainmenu" type="Node3D"]
 script = ExtResource("1_ba8xa")
@@ -79,6 +80,10 @@ script = ExtResource("6_cn02t")
 [node name="spear_menu" parent="." instance=ExtResource("7_fi1i7")]
 transform = Transform3D(0.66, 0, 0, 0, 0.66, 0, 0, 0, 0.66, -1.1, 4.5, -1.455)
 script = ExtResource("8_vlq63")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("9_4b1wn")
+volume_db = -13.911
 
 [connection signal="pressed" from="arena/Control/Weapon 1" to="." method="_on_weapon_1_pressed"]
 [connection signal="pressed" from="arena/Control/Weapon 2" to="." method="_on_weapon_2_pressed"]
