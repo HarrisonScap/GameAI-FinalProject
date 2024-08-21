@@ -5,7 +5,7 @@
 [ext_resource type="Script" path="res://main.gd" id="1_ygpgh"]
 [ext_resource type="Script" path="res://Continue.gd" id="2_afuai"]
 [ext_resource type="Script" path="res://Player.gd" id="2_pk0yy"]
-[ext_resource type="PackedScene" uid="uid://did0pebisd104" path="res://behavior_trees/Medium/behavior_tree3.tscn" id="5_01pq8"]
+[ext_resource type="PackedScene" uid="uid://did0pebisd104" path="res://behavior_trees/behavior_tree3/behavior_tree3.tscn" id="5_01pq8"]
 [ext_resource type="PackedScene" uid="uid://bpa5ll5ia5u6w" path="res://behavior_trees/behavior_tree1/enemy_tree1.tscn" id="5_sxouq"]
 [ext_resource type="Script" path="res://addons/beehave/nodes/beehave_tree.gd" id="6_781yn"]
 [ext_resource type="PackedScene" uid="uid://dfvi5g6768upw" path="res://assets/enemies/spear/spear_gladiator.tscn" id="7_b8x4m"]
@@ -94,7 +94,6 @@ offset_top = 576.0
 offset_right = 160.0
 offset_bottom = 626.0
 text = "Block
-Stamina Cost: 25
 "
 
 [node name="Pass" type="Button" parent="Control/Player"]
@@ -112,10 +111,10 @@ offset_bottom = 626.0
 text = "Potion (3/3)"
 
 [node name="Player Information" type="Label" parent="Control/Player"]
-offset_left = 26.0
-offset_top = 447.0
-offset_right = 124.0
-offset_bottom = 508.0
+offset_left = 53.0
+offset_top = 45.0
+offset_right = 151.0
+offset_bottom = 106.0
 text = "Player
 Health: 50
 "
@@ -131,19 +130,19 @@ offset_bottom = 609.0
 script = ExtResource("1_cccd8")
 
 [node name="BehaviorTree3" parent="Control/Enemy" node_paths=PackedStringArray("blackboard", "actor") instance=ExtResource("5_01pq8")]
-blackboard = NodePath("@Node@73357")
+blackboard = NodePath("@Node@44908")
 actor = NodePath("..")
 
 [node name="BeehaveTree" parent="Control/Enemy" node_paths=PackedStringArray("blackboard", "actor") instance=ExtResource("5_sxouq")]
 enabled = false
-blackboard = NodePath("@Node@73358")
+blackboard = NodePath("@Node@44909")
 actor = NodePath("..")
 
 [node name="Enemy Information" type="Label" parent="Control/Enemy"]
-offset_left = 931.0
-offset_top = 16.0
-offset_right = 1020.0
-offset_bottom = 72.0
+offset_left = 999.0
+offset_top = 538.0
+offset_right = 1088.0
+offset_bottom = 594.0
 text = "Enemy
 Health: 50
 "
@@ -151,35 +150,8 @@ Health: 50
 [node name="BeehaveTree2" type="Node" parent="Control/Enemy" node_paths=PackedStringArray("blackboard", "actor")]
 script = ExtResource("6_781yn")
 enabled = false
-blackboard = NodePath("@Node@73359")
+blackboard = NodePath("@Node@44910")
 actor = NodePath("..")
-
-[node name="Attack1" type="Button" parent="Control/Enemy"]
-offset_left = 1008.0
-offset_top = 135.0
-offset_right = 1131.0
-offset_bottom = 194.0
-disabled = true
-
-[node name="Attack2" type="Button" parent="Control/Enemy"]
-offset_left = 1008.0
-offset_top = 204.0
-offset_right = 1131.0
-offset_bottom = 263.0
-disabled = true
-
-[node name="Attack3" type="Button" parent="Control/Enemy"]
-offset_left = 1008.0
-offset_top = 273.0
-offset_right = 1131.0
-offset_bottom = 332.0
-disabled = true
-
-[node name="Enemy Attack Info" type="Label" parent="Control/Enemy"]
-offset_left = 238.0
-offset_top = 14.0
-offset_right = 459.0
-offset_bottom = 79.0
 
 [node name="sword_gladiator_finished" parent="." instance=ExtResource("8_iyplt")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.97793, 2.15734, -2.85442)
@@ -195,27 +167,14 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.52055, 1.62225, -1.03656)
 
 [connection signal="pressed" from="Control/Continue" to="." method="_on_continue_pressed"]
 [connection signal="mouse_entered" from="Control/Player/Attack" to="Control/Player" method="_on_attack_mouse_entered"]
-[connection signal="mouse_exited" from="Control/Player/Attack" to="Control/Player" method="_on_attack_mouse_exited"]
 [connection signal="pressed" from="Control/Player/Attack" to="." method="_on_attack_pressed"]
 [connection signal="mouse_entered" from="Control/Player/Attack2" to="Control/Player" method="_on_attack_2_mouse_entered"]
-[connection signal="mouse_exited" from="Control/Player/Attack2" to="." method="_on_attack_2_mouse_exited"]
-[connection signal="mouse_exited" from="Control/Player/Attack2" to="Control/Player" method="_on_attack_2_mouse_exited"]
 [connection signal="pressed" from="Control/Player/Attack2" to="." method="_on_attack_2_pressed"]
 [connection signal="mouse_entered" from="Control/Player/Attack3" to="Control/Player" method="_on_attack_3_mouse_entered"]
-[connection signal="mouse_exited" from="Control/Player/Attack3" to="Control/Player" method="_on_attack_3_mouse_exited"]
 [connection signal="pressed" from="Control/Player/Attack3" to="." method="_on_attack_3_pressed"]
 [connection signal="mouse_entered" from="Control/Player/Block" to="Control/Player" method="_on_block_mouse_entered"]
-[connection signal="mouse_exited" from="Control/Player/Block" to="Control/Player" method="_on_block_mouse_exited"]
 [connection signal="pressed" from="Control/Player/Block" to="." method="_on_block_pressed"]
 [connection signal="mouse_entered" from="Control/Player/Pass" to="Control/Player" method="_on_pass_mouse_entered"]
-[connection signal="mouse_exited" from="Control/Player/Pass" to="Control/Player" method="_on_pass_mouse_exited"]
 [connection signal="pressed" from="Control/Player/Pass" to="." method="_on_pass_pressed"]
 [connection signal="mouse_entered" from="Control/Player/Potion" to="Control/Player" method="_on_potion_mouse_entered"]
-[connection signal="mouse_exited" from="Control/Player/Potion" to="Control/Player" method="_on_potion_mouse_exited"]
 [connection signal="pressed" from="Control/Player/Potion" to="." method="_on_potion_pressed"]
-[connection signal="mouse_entered" from="Control/Enemy/Attack1" to="Control/Enemy" method="_on_attack_1_mouse_entered"]
-[connection signal="mouse_exited" from="Control/Enemy/Attack1" to="Control/Enemy" method="_on_attack_1_mouse_exited"]
-[connection signal="mouse_entered" from="Control/Enemy/Attack2" to="Control/Enemy" method="_on_attack_2_mouse_entered"]
-[connection signal="mouse_exited" from="Control/Enemy/Attack2" to="Control/Enemy" method="_on_attack_2_mouse_exited"]
-[connection signal="mouse_entered" from="Control/Enemy/Attack3" to="Control/Enemy" method="_on_attack_3_mouse_entered"]
-[connection signal="mouse_exited" from="Control/Enemy/Attack3" to="Control/Enemy" method="_on_attack_3_mouse_exited"]

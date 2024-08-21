@@ -32,18 +32,26 @@ extends Node3D
 var game_round = 1
 var attack_moves
 
+#this function will wait seconds before continuing
+func wait(seconds: float) -> void:
+	await get_tree().create_timer(seconds).timeout
+
 func _ready():
 	attack_moves = Globals.weapons[Globals.playerWeapon].keys() # 3 moves
-	attack1_button.text = attack_moves[0]
-	attack2_button.text = attack_moves[1]
-	attack3_button.text = attack_moves[2]
+	attack1_button.text = attack_moves[0] + "\nStamina Cost: " + str(Globals.weapons[Globals.playerWeapon][attack_moves[0]]["Stamina"])
+	attack2_button.text = attack_moves[1] + "\nStamina Cost: " + str(Globals.weapons[Globals.playerWeapon][attack_moves[1]]["Stamina"])
+	attack3_button.text = attack_moves[2] + "\nStamina Cost: " + str(Globals.weapons[Globals.playerWeapon][attack_moves[2]]["Stamina"])
 
 
 func _process(delta):
 	# if enemy or player dies...
 	if Globals.enemyHealth < 1:
 		#update fights won, spawn a new enemy with increased health
+		Globals.playerHealth = 100
+		
+		# Await animation
 		play_enemy_anim("death")
+		
 		player.fights_won += 1
 		enemy.spawn_enemy(player.fights_won)
 		if player.fights_won % 3 == 0: # give the player a potion every 3 wins
@@ -322,6 +330,4 @@ func _on_continue_pressed():
 	label.text = ""
 	continue_button.visible = false
 	toggle_button_visibility()
-
-
 
