@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://bm3ip2d6pqnxj"]
+[gd_scene load_steps=21 format=3 uid="uid://bm3ip2d6pqnxj"]
 
 [ext_resource type="Script" path="res://Enemy.gd" id="1_cccd8"]
 [ext_resource type="PackedScene" uid="uid://b36ufns1mo2kc" path="res://assets/gltf/arena/arena.gltf" id="1_nenmy"]
@@ -13,6 +13,9 @@
 [ext_resource type="PackedScene" uid="uid://b8hcf48bir3wy" path="res://behavior_trees/Hard/hard_tree.tscn" id="8_ftcwc"]
 [ext_resource type="PackedScene" uid="uid://cll1wpt3smqb6" path="res://assets/enemies/sword/sword_gladiator.tscn" id="8_iyplt"]
 [ext_resource type="PackedScene" uid="uid://cyapoxdlg464s" path="res://assets/enemies/mace/mace_gladiator_finished.tscn" id="8_vm13h"]
+[ext_resource type="PackedScene" uid="uid://8itlle5156kv" path="res://assets/players/sword/sword_player.tscn" id="14_qj6km"]
+[ext_resource type="PackedScene" uid="uid://d3psgsoedgy18" path="res://assets/players/spear/player_spear.tscn" id="15_vnym5"]
+[ext_resource type="PackedScene" uid="uid://sfyjqqbgm4uw" path="res://assets/players/mace/player_mace.tscn" id="16_1y246"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_nvopg"]
 sky_top_color = Color(0.658493, 0.342203, 0.325236, 1)
@@ -48,6 +51,15 @@ current = true
 fov = 33.3
 size = 5.374
 near = 0.165
+
+[node name="actionCamera1" type="Camera3D" parent="."]
+transform = Transform3D(-0.251934, 0.346619, -0.90354, 1.56562e-08, 0.933655, 0.358172, 0.967744, 0.0902359, -0.23522, -0.122844, 5.54429, -2.14363)
+
+[node name="actionCamera2" type="Camera3D" parent="."]
+transform = Transform3D(0.847048, -0.192158, -0.495566, 0, 0.932362, -0.361527, 0.531517, 0.306231, 0.789755, 2.8754, 3.2585, -0.962777)
+
+[node name="actionCamera3" type="Camera3D" parent="."]
+transform = Transform3D(-0.602551, -0.539256, -0.588333, -0.385836, 0.842142, -0.376732, 0.698615, 0, -0.715498, 1.44455, 3.08055, -1.2656)
 
 [node name="victoryUI" type="Control" parent="."]
 layout_mode = 3
@@ -164,15 +176,15 @@ script = ExtResource("1_cccd8")
 
 [node name="EasyTree" parent="Control/Enemy" node_paths=PackedStringArray("blackboard", "actor") instance=ExtResource("5_sxouq")]
 enabled = false
-blackboard = NodePath("@Node@39990")
+blackboard = NodePath("@Node@39681")
 actor = NodePath("..")
 
 [node name="MediumTree" parent="Control/Enemy" node_paths=PackedStringArray("blackboard", "actor") instance=ExtResource("5_01pq8")]
-blackboard = NodePath("@Node@39991")
+blackboard = NodePath("@Node@39682")
 actor = NodePath("..")
 
 [node name="HardTree" parent="Control/Enemy" node_paths=PackedStringArray("blackboard", "actor") instance=ExtResource("8_ftcwc")]
-blackboard = NodePath("@Node@39992")
+blackboard = NodePath("@Node@39683")
 actor = NodePath("..")
 
 [node name="Attack1" type="Button" parent="Control/Enemy"]
@@ -222,6 +234,15 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.97193, 2.04332, -2.75988)
 
 [node name="arena" parent="." instance=ExtResource("1_nenmy")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.52055, 1.62225, -1.03656)
+
+[node name="sword_player" parent="." instance=ExtResource("14_qj6km")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 2.618, 2.113, 0.836)
+
+[node name="player_spear" parent="." instance=ExtResource("15_vnym5")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 2.64632, 2.09088, 0.690297)
+
+[node name="player_mace" parent="." instance=ExtResource("16_1y246")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 2.62991, 2.07442, 0.687564)
 
 [connection signal="pressed" from="Control/Continue" to="." method="_on_continue_pressed"]
 [connection signal="mouse_entered" from="Control/Player/Attack" to="Control/Player" method="_on_attack_mouse_entered"]

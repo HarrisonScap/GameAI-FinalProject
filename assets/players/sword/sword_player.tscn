@@ -1,0 +1,28 @@
+[gd_scene load_steps=3 format=3 uid="uid://8itlle5156kv"]
+
+[ext_resource type="PackedScene" uid="uid://csx0pd1x5nscy" path="res://assets/gltf/sword_gladiator/sword_gladiator_finished.gltf" id="1_r7ulf"]
+[ext_resource type="Script" path="res://assets/players/sword/sword_player.gd" id="2_hi3ex"]
+
+[node name="sword_player" instance=ExtResource("1_r7ulf")]
+script = ExtResource("2_hi3ex")
+
+[node name="Skeleton3D" parent="sword_rig" index="0"]
+bones/0/rotation = Quaternion(0.14805, 1.17896e-07, 1.76489e-08, 0.98898)
+bones/6/rotation = Quaternion(-0.0258127, -0.113742, 0.979054, -0.166882)
+bones/7/rotation = Quaternion(0.162298, -0.0843916, -0.145982, 0.972228)
+bones/9/rotation = Quaternion(0.0357317, -0.123487, 0.984716, 0.117512)
+bones/10/rotation = Quaternion(0.202659, 0.0928872, 0.128904, 0.966274)
+bones/11/rotation = Quaternion(-0.0357738, -0.0105943, -0.0376977, 0.998592)
+bones/14/rotation = Quaternion(0.997387, -2.06241e-08, 1.19768e-07, 0.0722427)
+bones/15/rotation = Quaternion(0.0875412, -1.05428e-09, -1.19973e-08, 0.996161)
+bones/16/rotation = Quaternion(-0.747631, 1.42506e-06, -1.60427e-06, 0.664114)
+bones/17/rotation = Quaternion(0.944138, -5.06563e-08, 1.16519e-07, 0.329552)
+bones/18/rotation = Quaternion(0.290191, -3.49494e-09, -1.15252e-08, 0.956969)
+
+[node name="sword" parent="sword_rig/Skeleton3D" index="0"]
+transform = Transform3D(-0.0268482, 9.18213e-08, 0.773639, 0.773639, 1.56529e-07, 0.0268481, -2.25907e-07, 0.774105, -9.49433e-08, -0.37879, 0.845353, -0.0815777)
+
+[node name="Sphere_003" parent="sword_rig/Skeleton3D" index="1"]
+transform = Transform3D(4.84973e-09, -7.20287e-10, 0.0644655, -0.0726265, -0.0329715, 2.25041e-09, 0.0432273, -0.0553957, -7.34801e-09, 0.249501, 0.799314, -0.257369)
+
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]

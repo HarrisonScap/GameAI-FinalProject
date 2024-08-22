@@ -1,0 +1,24 @@
+[gd_scene load_steps=3 format=3 uid="uid://sfyjqqbgm4uw"]
+
+[ext_resource type="PackedScene" uid="uid://bpox6w65p35gj" path="res://assets/gltf/mace_gladiator/mace_gladiator_finished.gltf" id="1_brx5j"]
+[ext_resource type="Script" path="res://assets/players/mace/player_mace.gd" id="2_20myd"]
+
+[node name="player_mace" instance=ExtResource("1_brx5j")]
+script = ExtResource("2_20myd")
+
+[node name="Skeleton3D" parent="sword_rig_003" index="0"]
+bones/0/rotation = Quaternion(0.14805, 1.17896e-07, 1.76489e-08, 0.98898)
+bones/1/rotation = Quaternion(-0.0868533, -1.18759e-07, -1.03537e-08, 0.996221)
+bones/6/rotation = Quaternion(0.137068, -0.12065, 0.981929, -0.0497071)
+bones/7/rotation = Quaternion(-0.443341, 0.478793, 0.688305, -0.316926)
+bones/8/rotation = Quaternion(-0.0977873, 0.375383, -0.0791648, 0.918291)
+bones/9/rotation = Quaternion(0.0157077, 0.208245, 0.974823, 0.0781455)
+bones/10/rotation = Quaternion(0.470588, -0.501625, -0.0732693, 0.722185)
+bones/11/rotation = Quaternion(-0.0357738, -0.0105943, -0.0376977, 0.998592)
+bones/15/rotation = Quaternion(0.0875412, -1.05428e-09, -1.19973e-08, 0.996161)
+bones/16/rotation = Quaternion(-0.711082, 1.50873e-06, -1.52584e-06, 0.703109)
+
+[node name="Cylinder_002" parent="sword_rig_003/Skeleton3D" index="0"]
+transform = Transform3D(-0.113844, 0.737162, 0.204027, 0.238652, 0.230211, -0.698601, -0.726692, -0.0398813, -0.26139, 0.464842, 1.33829, 0.378877)
+
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]

@@ -9,7 +9,7 @@ extends Node3D
 ############
 
 # Sounds
-@onready var attack_sound_player = $attack_sound_player  # Reference the AudioStreamPlayer node
+@onready var attack_sound_player = $AudioStreamPlayer  # Reference the AudioStreamPlayer node
 
 # Attacks
 @onready var attack1_button = $Control/Player/Attack
@@ -22,10 +22,22 @@ extends Node3D
 @onready var pass_button = $Control/Player/Pass
 @onready var continue_button = $Control/Continue
 
-# Enemy Gladiators # (A Bit Janky but its gonna work I promise)
+# Enemy Gladiators 
 @onready var enemy_sword = $sword_gladiator_finished
 @onready var enemy_spear = $spear_gladiator_finished
 @onready var enemy_mace = $mace_gladiator_finished
+
+# Player Gladiators
+
+@onready var player_sword = $sword_player
+@onready var player_spear = $player_spear
+@onready var player_mace = $player_mace
+
+# Cameras
+@onready var normalCamera = $Camera3D
+@onready var actionCam1 = $actionCamera1
+@onready var actionCam2 = $actionCamera2
+@onready var actionCam3 = $actionCamera3
 
 # Entire UI
 @onready var gameUI = $Control
@@ -71,24 +83,25 @@ func _process(delta):
 		victoryUI.visible = false
 		gameUI.visible = true
 		
-		
-		
-		
-		
+		# Spawn new enemy
 		enemy.spawn_enemy(player.fights_won)
+		
+		
 		if player.fights_won % 3 == 0: # give the player a potion every 3 wins
 			Globals.playerPotions += 1
+	
+	
 	elif Globals.playerHealth < 1:
 		gameUI.visible = false
 		victoryUI.visible = true
 		# Edit defeat text
 		victoryUI.defeat_text(enemy.enemy_name)
+		play_player_anim("death")
 		
 		await get_tree().create_timer(2).timeout
 		
 		get_tree().change_scene_to_file("res://mainmenu.tscn")  # add scene for the main menu (.tscn)
 		
-	# **Potentially Temporary**
 	# Shows the enemy model that you're currently facing and hides the others
 	if Globals.enemyWeapon == "Sword":
 		enemy_sword.visible = true
@@ -102,7 +115,22 @@ func _process(delta):
 		enemy_sword.visible = false
 		enemy_spear.visible = false
 		enemy_mace.visible = true
-			
+	
+	# ... and for player
+	
+		# Shows the enemy model that you're currently facing and hides the others
+	if Globals.playerWeapon == "Sword":
+		player_sword.visible = true
+		player_spear.visible = false
+		player_mace.visible = false
+	elif Globals.playerWeapon == "Spear and Shield":
+		player_sword.visible = false
+		player_spear.visible = true
+		player_mace.visible = false
+	else:
+		player_sword.visible = false
+		player_spear.visible = false
+		player_mace.visible = true
 	
 	# Block
 	if Globals.playerStamina < 25 or Globals.playerStun:
@@ -145,13 +173,23 @@ func play_enemy_anim(enemy_move):
 		enemy_spear.play(enemy_move)
 	else:
 		enemy_mace.play(enemy_move) #not yet implemented
+		
+# Play a specified animation for a specific player type
+func play_player_anim(player_move):
+	if Globals.playerWeapon == "Sword":
+		player_sword.play(player_move)
+	elif Globals.playerWeapon == "Spear and Shield":
+		player_spear.play(player_move)
+	else:
+		player_mace.play(player_move) #not yet implemented
 
 
 
 # Called by the whatever button the player clicks, gets the enemy move and then calls
 # resolve() to play out the game
 func play(player_move):
-	#
+	
+
 	#var sound_path = Globals.weapons[Globals.playerWeapon][player_move]["sound"]
 	#var sound_stream = load(sound_path)
 	#
@@ -159,11 +197,26 @@ func play(player_move):
 		#attack_sound_player.stream = sound_stream
 		#attack_sound_player.play()
 	
+
 	# Handle enemy move
 	var enemy_move = Globals.enemyMove
-	#print(enemy_move)
-	#enemy_sword.play(enemy_move) # Play enemy attack animation
+		# Percent chance to go to an action camera
+	var cameraChance = randf_range(0,100)
+	if cameraChance < 15:
+		actionCam1.make_current()
+	elif cameraChance < 30 and enemy_move != "Pass":
+		actionCam2.make_current()
+	elif cameraChance < 65 and player_move != "Pass":
+		actionCam3.make_current()
+	else:
+		normalCamera.make_current()
+
+
+
+	# Play both attack animations
 	play_enemy_anim(enemy_move)
+	print("Player chooses" + player_move)
+	play_player_anim(player_move)
 	
 	print("Enemy chooses " + str(enemy_move))
 	
@@ -283,9 +336,12 @@ func resolve(player_move, enemy_move):
 		if player_move in Globals.damage_moves:
 			Globals.enemyHealth -= Globals.weapons[Globals.playerWeapon][player_move]["damage"]
 		if enemy_move in Globals.damage_moves:
-			Globals.playerHealth -= Globals.weapons[Globals.enemyWeapon][enemy_move]["damage"]
-		
+			Globals.playerHealth -= Globals.weapons[Globals.enemyWeapon][enemy_move]["damage"]		
 
+	# Reset camera if not normal
+	if get_viewport().get_camera_3d() != normalCamera:
+		await get_tree().create_timer(3).timeout
+		normalCamera.make_current()
 
 	# Put together the resolution text
 	if Globals.enemyHealth > 0:
@@ -293,6 +349,8 @@ func resolve(player_move, enemy_move):
 		continue_button.visible = true
 	else:
 		toggle_button_visibility() # idk why i need to do this tbh
+
+	
 
 # Toggles visibility of the attack and block buttons
 func toggle_button_visibility():
