@@ -136,14 +136,15 @@ script = ExtResource("1_cccd8")
 
 [node name="EasyTree" parent="Control/Enemy" node_paths=PackedStringArray("blackboard", "actor") instance=ExtResource("5_sxouq")]
 enabled = false
-blackboard = NodePath("@Node@20997")
+blackboard = NodePath("@Node@28038")
 actor = NodePath("..")
 
 [node name="MediumTree" parent="Control/Enemy" node_paths=PackedStringArray("blackboard") instance=ExtResource("5_01pq8")]
-blackboard = NodePath("@Node@20998")
+blackboard = NodePath("@Node@28039")
 
-[node name="HardTree" parent="Control/Enemy" node_paths=PackedStringArray("blackboard") instance=ExtResource("8_ftcwc")]
-blackboard = NodePath("@Node@20999")
+[node name="HardTree" parent="Control/Enemy" node_paths=PackedStringArray("blackboard", "actor") instance=ExtResource("8_ftcwc")]
+blackboard = NodePath("@Node@28040")
+actor = NodePath("..")
 
 [node name="Attack1" type="Button" parent="Control/Enemy"]
 offset_left = 1008.0
