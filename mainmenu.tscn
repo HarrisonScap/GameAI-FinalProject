@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://dp3ievo5x0fj4"]
+[gd_scene load_steps=14 format=3 uid="uid://dp3ievo5x0fj4"]
 
 [ext_resource type="Script" path="res://mainmenu.gd" id="1_ba8xa"]
 [ext_resource type="PackedScene" uid="uid://b36ufns1mo2kc" path="res://assets/gltf/arena/arena.gltf" id="2_1ro43"]
@@ -11,14 +11,20 @@
 [ext_resource type="AudioStream" uid="uid://dpiikg5fwu1d3" path="res://assets/audio/733259__jadis0x__simple-video-game-music-loop.wav" id="9_4b1wn"]
 [ext_resource type="SpriteFrames" uid="uid://du4aemu1kwy1a" path="res://assets/gifs/title.gif" id="10_ewf5p"]
 
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_vxnh7"]
+sky_top_color = Color(0.658493, 0.342203, 0.325236, 1)
+sky_horizon_color = Color(0.805937, 0.615726, 0.372581, 1)
+
+[sub_resource type="Sky" id="Sky_qlr20"]
+sky_material = SubResource("ProceduralSkyMaterial_vxnh7")
+
+[sub_resource type="Environment" id="Environment_p57yj"]
+background_mode = 2
+sky = SubResource("Sky_qlr20")
+sdfgi_use_occlusion = true
+
 [node name="Mainmenu" type="Node3D"]
 script = ExtResource("1_ba8xa")
-
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
-
-[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer"]
-offset_right = 40.0
-offset_bottom = 40.0
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(0.979973, 0, -0.199128, 0, 1, 0, 0.199128, 0, 0.979973, 0, 4.16354, 2.47758)
@@ -82,7 +88,7 @@ scale = Vector2(0.775, 0.775)
 sprite_frames = ExtResource("10_ewf5p")
 animation = &"gif"
 autoplay = "gif"
-frame_progress = 0.757594
+frame_progress = 0.382068
 
 [node name="Label" type="Label" parent="."]
 offset_left = 834.0
@@ -95,6 +101,13 @@ Connor Lowe
 Harrison Scapellati
 Praneet Varade
 Calvin Hunter"
+
+[node name="DirectionalLight3D2" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.384263, 0.144695, -0.911814, -4.44089e-16, 0.987642, 0.156728, 0.923224, -0.0602247, 0.379514, 7.24798, 13.6018, 8.73694)
+light_bake_mode = 1
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_p57yj")
 
 [connection signal="pressed" from="arena/Control/Weapon 1" to="." method="_on_weapon_1_pressed"]
 [connection signal="pressed" from="arena/Control/Weapon 2" to="." method="_on_weapon_2_pressed"]

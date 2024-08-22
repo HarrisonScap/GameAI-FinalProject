@@ -27,6 +27,9 @@ extends Node3D
 @onready var enemy_spear = $spear_gladiator_finished
 @onready var enemy_mace = $mace_gladiator_finished
 
+# Entire UI
+@onready var gameUI = $Control
+@onready var victoryUI = $victoryUI
 
 # Label #
 @onready var label = $Control/resolve
@@ -46,17 +49,32 @@ func _ready():
 func _process(delta):
 	# if enemy or player dies...
 	if Globals.enemyHealth < 1 and Globals.enemyHealth != -100:
-		#update fights won, spawn a new enemy with increased health
+		
+		# Upon Death, reset player health and stamina
+		
 		Globals.playerHealth = 100
 		Globals.playerStamina = 100
 		Globals.enemyHealth = -100
-		
-		# Await animation
-		play_enemy_anim("death")
-		await get_tree().create_timer(5).timeout
-		
-		
 		player.fights_won += 1
+		
+		
+		# Play death animation and swap UI
+		play_enemy_anim("death")
+		gameUI.visible = false
+		victoryUI.visible = true
+		
+		# Edit victory text
+		victoryUI.victory_text(enemy.enemy_name)
+		
+		
+		await get_tree().create_timer(5).timeout
+		victoryUI.visible = false
+		gameUI.visible = true
+		
+		
+		
+		
+		
 		enemy.spawn_enemy(player.fights_won)
 		if player.fights_won % 3 == 0: # give the player a potion every 3 wins
 			Globals.playerPotions += 1
@@ -112,7 +130,7 @@ func _process(delta):
 		potion_button.disabled = false
 
 	
-
+# Play a specified animation for a specific enemy type
 func play_enemy_anim(enemy_move):
 	if Globals.enemyWeapon == "Sword":
 		enemy_sword.play(enemy_move)
@@ -262,11 +280,12 @@ func resolve(player_move, enemy_move):
 		
 
 
-
-	
 	# Put together the resolution text
-	label.text = "The player chooses " + str(player_move) + "\n" + str(enemy.name) + " chooses " + str(enemy_move)
-	continue_button.visible = true
+	if Globals.enemyHealth > 0:
+		label.text = "The player chooses " + str(player_move) + "\n" + str(enemy.name) + " chooses " + str(enemy_move)
+		continue_button.visible = true
+	else:
+		toggle_button_visibility() # idk why i need to do this tbh
 
 # Toggles visibility of the attack and block buttons
 func toggle_button_visibility():
