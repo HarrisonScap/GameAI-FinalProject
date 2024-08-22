@@ -79,6 +79,13 @@ func _process(delta):
 		if player.fights_won % 3 == 0: # give the player a potion every 3 wins
 			Globals.playerPotions += 1
 	elif Globals.playerHealth < 1:
+		gameUI.visible = false
+		victoryUI.visible = true
+		# Edit defeat text
+		victoryUI.defeat_text(enemy.enemy_name)
+		
+		await get_tree().create_timer(2).timeout
+		
 		get_tree().change_scene_to_file("res://mainmenu.tscn")  # add scene for the main menu (.tscn)
 		
 	# **Potentially Temporary**
