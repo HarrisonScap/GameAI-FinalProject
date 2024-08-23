@@ -1,9 +1,10 @@
-[gd_scene load_steps=30 format=3 uid="uid://b8hcf48bir3wy"]
+[gd_scene load_steps=31 format=3 uid="uid://b8hcf48bir3wy"]
 
 [ext_resource type="Script" path="res://addons/beehave/nodes/beehave_tree.gd" id="1_8dkcy"]
 [ext_resource type="Script" path="res://addons/beehave/nodes/composites/selector.gd" id="2_la6b6"]
 [ext_resource type="Script" path="res://addons/beehave/nodes/composites/sequence.gd" id="3_i0hxb"]
 [ext_resource type="Script" path="res://behavior_trees/Hard/d3_checkKillMovePotion1.gd" id="4_ir5i6"]
+[ext_resource type="Script" path="res://behavior_trees/Hard/d3_isStunned.gd" id="4_vvdhl"]
 [ext_resource type="Script" path="res://behavior_trees/Hard/d3_Attack1.gd" id="5_koa7o"]
 [ext_resource type="Script" path="res://behavior_trees/Hard/d3_checkKillMovePotion2.gd" id="6_p7k8o"]
 [ext_resource type="Script" path="res://behavior_trees/Hard/d3_Attack2.gd" id="7_8g5b2"]
@@ -37,6 +38,15 @@ actor = NodePath("..")
 
 [node name="d3_selector" type="Node" parent="."]
 script = ExtResource("2_la6b6")
+
+[node name="d3_stunPass" type="Node" parent="d3_selector"]
+script = ExtResource("3_i0hxb")
+
+[node name="d3_isStunned" type="Node" parent="d3_selector/d3_stunPass"]
+script = ExtResource("4_vvdhl")
+
+[node name="d3_forcePass" type="Node" parent="d3_selector/d3_stunPass"]
+script = ExtResource("30_ky8b8")
 
 [node name="d3_killMovesPotionSel" type="Node" parent="d3_selector"]
 script = ExtResource("2_la6b6")
