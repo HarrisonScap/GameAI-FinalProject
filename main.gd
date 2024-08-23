@@ -235,6 +235,11 @@ func resolve(player_move, enemy_move):
 	if player_move == "Potion":
 		Globals.playerHealth += Globals.potionHeal
 		Globals.playerPotions -= 1
+		
+		# Stop Bleeding
+		Globals.playerBleedTurns = 0
+		Globals.playerBleed = false
+		
 		if Globals.playerHealth > 100:
 			Globals.playerHealth = 100
 	elif player_move == "Pass":
@@ -250,8 +255,8 @@ func resolve(player_move, enemy_move):
 	
 	# Check if bleeding
 	if Globals.playerBleed: 
-		Globals.playerHealth -= 5
-		Globals.playerBleedTurns -=1
+		Globals.playerHealth -= 10
+		Globals.playerBleedTurns -= 1
 		if Globals.playerBleedTurns <= 0:
 			Globals.playerBleed = false
 	

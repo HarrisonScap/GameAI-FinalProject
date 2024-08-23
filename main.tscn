@@ -8,7 +8,7 @@
 [ext_resource type="Script" path="res://AudioStreamPlayer.gd" id="2_x04g8"]
 [ext_resource type="Script" path="res://victoryUI.gd" id="3_4huei"]
 [ext_resource type="PackedScene" uid="uid://did0pebisd104" path="res://behavior_trees/Medium/behavior_tree3.tscn" id="5_01pq8"]
-[ext_resource type="PackedScene" uid="uid://bpa5ll5ia5u6w" path="res://behavior_trees/behavior_tree1/enemy_tree1.tscn" id="5_sxouq"]
+[ext_resource type="PackedScene" uid="uid://bpa5ll5ia5u6w" path="res://behavior_trees/Easy/enemy_tree1.tscn" id="5_sxouq"]
 [ext_resource type="PackedScene" uid="uid://dfvi5g6768upw" path="res://assets/enemies/spear/spear_gladiator.tscn" id="7_b8x4m"]
 [ext_resource type="PackedScene" uid="uid://b8hcf48bir3wy" path="res://behavior_trees/Hard/hard_tree.tscn" id="8_ftcwc"]
 [ext_resource type="PackedScene" uid="uid://cll1wpt3smqb6" path="res://assets/enemies/sword/sword_gladiator.tscn" id="8_iyplt"]
@@ -176,16 +176,15 @@ script = ExtResource("1_cccd8")
 
 [node name="EasyTree" parent="Control/Enemy" node_paths=PackedStringArray("blackboard", "actor") instance=ExtResource("5_sxouq")]
 enabled = false
-blackboard = NodePath("@Node@39681")
+blackboard = NodePath("@Node@52653")
 actor = NodePath("..")
 
 [node name="MediumTree" parent="Control/Enemy" node_paths=PackedStringArray("blackboard", "actor") instance=ExtResource("5_01pq8")]
-blackboard = NodePath("@Node@39682")
+blackboard = NodePath("@Node@52654")
 actor = NodePath("..")
 
-[node name="HardTree" parent="Control/Enemy" node_paths=PackedStringArray("blackboard", "actor") instance=ExtResource("8_ftcwc")]
-blackboard = NodePath("@Node@39683")
-actor = NodePath("..")
+[node name="HardTree" parent="Control/Enemy" node_paths=PackedStringArray("blackboard") instance=ExtResource("8_ftcwc")]
+blackboard = NodePath("@Node@52655")
 
 [node name="Attack1" type="Button" parent="Control/Enemy"]
 offset_left = 1006.0

@@ -11,7 +11,7 @@ var weapons = {
 	},
 	"Spear and Shield": {
 		"Stab": {"damage": 10, "Stamina": 15, "description": "Stab with your spear, deal 10 damage and start bleeding"},#, "sound": "res://assets/audio/spear_stab.wav"},
-		"Shield Block": {"damage": 0, "Stamina": 15, "description": "Block with your shield, deal 0 damage"},#, "sound": "res://assets/audio/shield_block.wav"},
+		"Shield Block": {"damage": 0, "Stamina": 10, "description": "Block with your shield, deal 0 damage"},#, "sound": "res://assets/audio/shield_block.wav"},
 		"Shield Bash": {"damage": 10, "Stamina": 40, "description": "Slam your shield at the enemy, stunning them"},#, "sound": "res://assets/audio/shield_bash.wav"}
 	},
 	"Mace": {

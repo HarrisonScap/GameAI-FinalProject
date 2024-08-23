@@ -44,7 +44,7 @@ offset_left = 32.0
 offset_top = 462.0
 offset_right = 238.0
 offset_bottom = 541.0
-text = "Weapon 1"
+text = "Sword"
 
 [node name="Weapon 2" type="Button" parent="arena/Control"]
 layout_mode = 0
@@ -52,7 +52,7 @@ offset_left = 252.0
 offset_top = 460.0
 offset_right = 458.0
 offset_bottom = 539.0
-text = "Weapon 2"
+text = "Spear and Shield"
 
 [node name="Weapon 3" type="Button" parent="arena/Control"]
 layout_mode = 0
@@ -60,7 +60,7 @@ offset_left = 480.0
 offset_top = 460.0
 offset_right = 686.0
 offset_bottom = 539.0
-text = "Weapon 3"
+text = "Mace"
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.828012, -0.0878791, 0.553782, 4.55488e-09, 0.987642, 0.156728, -0.560711, -0.129773, 0.817779, 7.24798, 13.6018, 8.73694)

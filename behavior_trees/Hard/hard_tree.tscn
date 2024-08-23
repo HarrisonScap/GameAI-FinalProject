@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=3 uid="uid://b8hcf48bir3wy"]
+[gd_scene load_steps=30 format=3 uid="uid://b8hcf48bir3wy"]
 
 [ext_resource type="Script" path="res://addons/beehave/nodes/beehave_tree.gd" id="1_8dkcy"]
 [ext_resource type="Script" path="res://addons/beehave/nodes/composites/selector.gd" id="2_la6b6"]
@@ -24,7 +24,6 @@
 [ext_resource type="Script" path="res://behavior_trees/Hard/d3_enoughStamina.gd" id="22_qqgmy"]
 [ext_resource type="Script" path="res://behavior_trees/Hard/d3_highestDamageMove.gd" id="23_dedro"]
 [ext_resource type="Script" path="res://behavior_trees/Hard/d3_playerWillAttack.gd" id="24_d677j"]
-[ext_resource type="Script" path="res://behavior_trees/Hard/d3_checkBlock.gd" id="25_f15an"]
 [ext_resource type="Script" path="res://addons/beehave/nodes/composites/selector_random.gd" id="25_l1n83"]
 [ext_resource type="Script" path="res://behavior_trees/Hard/d3_checkMove1.gd" id="26_ljys2"]
 [ext_resource type="Script" path="res://behavior_trees/Hard/d3_checkMove2.gd" id="27_oi6rd"]
@@ -33,7 +32,7 @@
 
 [node name="HardTree" type="Node" node_paths=PackedStringArray("blackboard", "actor")]
 script = ExtResource("1_8dkcy")
-blackboard = NodePath("@Node@32609")
+blackboard = NodePath("@Node@18314")
 actor = NodePath("")
 
 [node name="d3_selector" type="Node" parent="."]
@@ -180,15 +179,6 @@ script = ExtResource("18_32y1o")
 [node name="d3_shieldBlock" type="Node" parent="d3_selector/d3_predictiveBlock/SelectorComposite/SequenceComposite2"]
 script = ExtResource("19_wdnp7")
 
-[node name="SequenceComposite3" type="Node" parent="d3_selector/d3_predictiveBlock/SelectorComposite"]
-script = ExtResource("3_i0hxb")
-
-[node name="d3_checkBlock" type="Node" parent="d3_selector/d3_predictiveBlock/SelectorComposite/SequenceComposite3"]
-script = ExtResource("25_f15an")
-
-[node name="d3_defaultBlock" type="Node" parent="d3_selector/d3_predictiveBlock/SelectorComposite/SequenceComposite3"]
-script = ExtResource("20_wabh4")
-
 [node name="d3_randomMovesSeq" type="Node" parent="d3_selector"]
 script = ExtResource("25_l1n83")
 
@@ -218,6 +208,9 @@ script = ExtResource("28_eakc4")
 
 [node name="d3_Attack3" type="Node" parent="d3_selector/d3_randomMovesSeq/SequenceComposite3"]
 script = ExtResource("9_alivw")
+
+[node name="d3_forcePass" type="Node" parent="d3_selector/d3_randomMovesSeq"]
+script = ExtResource("30_ky8b8")
 
 [node name="d3_forcePass" type="Node" parent="d3_selector"]
 script = ExtResource("30_ky8b8")

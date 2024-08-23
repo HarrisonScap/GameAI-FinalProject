@@ -26,8 +26,14 @@ var enemy_name
 
 # Continously updates the information per frame
 func _process(delta):
-	label.text = enemy_name + "\n" + "Health: " + str(Globals.enemyHealth) + "\nStamina: " + str(Globals.enemyStamina) 
-
+	label.text = enemy_name + "\n" + "Health: " + str(Globals.enemyHealth) + "\nStamina: " + str(Globals.enemyStamina) + "\nDifficulty: "
+	if easy_tree.enabled:
+		label.text += "Easy" 
+	elif medium_tree.enabled:
+		label.text += "Medium"
+	elif hard_tree.enabled:
+		label.text += "Hard"
+	
 # Generates enemy name randomly
 func generate_name():
 	var names = [
@@ -98,6 +104,8 @@ func spawn_enemy(fights_won):
 	Globals.enemyStamina = 100
 	enemy_name = generate_name()
 	label.text = enemy_name + "\n" + "Health: " + str(Globals.enemyHealth)
+	
+	
 	Globals.enemyWeapon = ["Sword", "Spear and Shield", "Mace"].pick_random()
 	await get_tree().create_timer(1).timeout
 	play_enemy_anim("idle")
@@ -122,17 +130,26 @@ func _ready():
 
 # chooses the difficulty of the new enemy based on the number of fights won
 func choose_difficulty(fights_won):
-	var easy = max(0.5 - fights_won * 0.05, 0.1)
-	var medium = min(0.3 + fights_won * 0.05, 0.4)
-	var hard = min(0.2 + fights_won * 0.05, 0.5)
 	
-	var random_difficulty = randf_range(0, easy + medium + hard)
-	if random_difficulty < easy:
-		easy_tree.enabled = true
-	elif random_difficulty < medium:
-		medium_tree.enabled = true
-	else:
-		hard_tree.enabled = true
+	# These calculations are not working
+	##var easy = max(0.5 - fights_won * 0.05, 0.1)
+	##var medium = min(0.3 + fights_won * 0.05, 0.4)
+	##var hard = min(0.2 + fights_won * 0.05, 0.5)
+	#
+	#var random_difficulty = randf_range(0, easy + medium + hard)
+	
+	#var random_difficulty = randf_range(0, 100)
+	#
+	#if random_difficulty < 70:
+		#print("Tree: Easy")
+		#easy_tree.enabled = true
+	#elif random_difficulty < 90:
+		#print("Tree: Medium")
+		#medium_tree.enabled = true
+	#else:
+		#print("Tree: Hard")
+		#hard_tree.enabled = true
+	hard_tree.enabled = true
 		
 
 func _on_attack_1_mouse_entered():

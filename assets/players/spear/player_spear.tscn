@@ -18,9 +18,9 @@ bones/13/rotation = Quaternion(-0.0357737, -0.0105943, -0.0376976, 0.998592)
 bones/17/rotation = Quaternion(0.0875412, -1.05428e-09, -1.19973e-08, 0.996161)
 
 [node name="Cylinder_004" parent="sword_rig_002/Skeleton3D" index="0"]
-transform = Transform3D(0.119434, -0.0207936, 0.725937, 0.700383, -0.191243, -0.120707, 0.192041, 0.710405, -0.0112465, 0.442737, 0.885967, -0.119502)
+transform = Transform3D(0.119434, -0.0207934, 0.725937, 0.700383, -0.191244, -0.120707, 0.192042, 0.710404, -0.011247, 0.442737, 0.885967, -0.119503)
 
 [node name="Cylinder_005" parent="sword_rig_002/Skeleton3D" index="1"]
-transform = Transform3D(0.211643, 7.8863e-08, 0.977347, 0.387759, 0.917928, -0.0839688, -0.897134, 0.396746, 0.194274, -0.394967, 1.60319, 0.55701)
+transform = Transform3D(0.211643, 4.2904e-07, 0.977347, 0.387759, 0.917927, -0.0839692, -0.897134, 0.396747, 0.194273, -0.394967, 1.60319, 0.557011)
 
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
