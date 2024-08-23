@@ -1,0 +1,38 @@
+[gd_scene load_steps=6 format=3 uid="uid://0xo1hv18e841"]
+
+[ext_resource type="Script" path="res://intro_cutscene.gd" id="1_8gkfj"]
+[ext_resource type="PackedScene" uid="uid://chd4wsk3d3y8m" path="res://assets/gltf/city/city.gltf" id="1_jp5m8"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_odi1n"]
+sky_top_color = Color(0.658493, 0.342203, 0.325236, 1)
+sky_horizon_color = Color(0.805937, 0.615726, 0.372581, 1)
+
+[sub_resource type="Sky" id="Sky_7of1g"]
+sky_material = SubResource("ProceduralSkyMaterial_odi1n")
+
+[sub_resource type="Environment" id="Environment_dexfy"]
+background_mode = 2
+sky = SubResource("Sky_7of1g")
+sdfgi_use_occlusion = true
+
+[node name="Node3D" type="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -43.2062, 0, 0)
+script = ExtResource("1_8gkfj")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.384263, 0.144695, -0.911814, -4.44089e-16, 0.987642, 0.156728, 0.923224, -0.0602247, 0.379514, 7.24798, 13.6018, 8.73694)
+light_bake_mode = 1
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_dexfy")
+
+[node name="city" parent="." instance=ExtResource("1_jp5m8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 46.0044, 3.02578, 38.8805)
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -151.483, 19.2727, 34.23)
+
+[node name="Camera3D2" type="Camera3D" parent="."]
+transform = Transform3D(0.551296, 0.54931, -0.627958, 6.08245e-08, 0.752668, 0.658401, 0.834309, -0.362974, 0.414943, -58.4563, 135.556, 133.655)
+projection = 1
+size = 158.21

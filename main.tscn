@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://bm3ip2d6pqnxj"]
+[gd_scene load_steps=22 format=3 uid="uid://bm3ip2d6pqnxj"]
 
 [ext_resource type="Script" path="res://Enemy.gd" id="1_cccd8"]
 [ext_resource type="PackedScene" uid="uid://b36ufns1mo2kc" path="res://assets/gltf/arena/arena.gltf" id="1_nenmy"]
@@ -16,17 +16,18 @@
 [ext_resource type="PackedScene" uid="uid://8itlle5156kv" path="res://assets/players/sword/sword_player.tscn" id="14_qj6km"]
 [ext_resource type="PackedScene" uid="uid://d3psgsoedgy18" path="res://assets/players/spear/player_spear.tscn" id="15_vnym5"]
 [ext_resource type="PackedScene" uid="uid://sfyjqqbgm4uw" path="res://assets/players/mace/player_mace.tscn" id="16_1y246"]
+[ext_resource type="SpriteFrames" uid="uid://dg4kvhq862uvc" path="res://assets/gifs/audience.gif" id="17_0418l"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_nvopg"]
 sky_top_color = Color(0.658493, 0.342203, 0.325236, 1)
 sky_horizon_color = Color(0.805937, 0.615726, 0.372581, 1)
 
-[sub_resource type="Sky" id="Sky_7of1g"]
+[sub_resource type="Sky" id="Sky_sdeja"]
 sky_material = SubResource("ProceduralSkyMaterial_nvopg")
 
 [sub_resource type="Environment" id="Environment_g1lyf"]
 background_mode = 2
-sky = SubResource("Sky_7of1g")
+sky = SubResource("Sky_sdeja")
 sdfgi_use_occlusion = true
 
 [sub_resource type="LabelSettings" id="LabelSettings_g7pmp"]
@@ -176,15 +177,16 @@ script = ExtResource("1_cccd8")
 
 [node name="EasyTree" parent="Control/Enemy" node_paths=PackedStringArray("blackboard", "actor") instance=ExtResource("5_sxouq")]
 enabled = false
-blackboard = NodePath("@Node@52653")
+blackboard = NodePath("@Node@104297")
 actor = NodePath("..")
 
 [node name="MediumTree" parent="Control/Enemy" node_paths=PackedStringArray("blackboard", "actor") instance=ExtResource("5_01pq8")]
-blackboard = NodePath("@Node@52654")
+blackboard = NodePath("@Node@104298")
 actor = NodePath("..")
 
-[node name="HardTree" parent="Control/Enemy" node_paths=PackedStringArray("blackboard") instance=ExtResource("8_ftcwc")]
-blackboard = NodePath("@Node@52655")
+[node name="HardTree" parent="Control/Enemy" node_paths=PackedStringArray("blackboard", "actor") instance=ExtResource("8_ftcwc")]
+blackboard = NodePath("@Node@104299")
+actor = NodePath("..")
 
 [node name="Attack1" type="Button" parent="Control/Enemy"]
 offset_left = 1006.0
@@ -242,6 +244,87 @@ transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 2.6463
 
 [node name="player_mace" parent="." instance=ExtResource("16_1y246")]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 2.62991, 2.07442, 0.687564)
+
+[node name="audience" type="Node3D" parent="."]
+
+[node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="audience"]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 8.80534, -14.8645)
+sprite_frames = ExtResource("17_0418l")
+animation = &"gif"
+autoplay = "gif"
+speed_scale = 3.0
+
+[node name="AnimatedSprite3D2" type="AnimatedSprite3D" parent="audience"]
+transform = Transform3D(1.85353, 0, -0.751284, 0, 2, 0, 0.751284, 0, 1.85353, 5.12853, 8.27608, -13.9147)
+sprite_frames = ExtResource("17_0418l")
+animation = &"gif"
+autoplay = "gif"
+
+[node name="AnimatedSprite3D3" type="AnimatedSprite3D" parent="audience"]
+transform = Transform3D(1.59504, 0, 1.20658, 0, 2, 0, -1.20658, 0, 1.59504, -6.06123, 8.80534, -12.7625)
+sprite_frames = ExtResource("17_0418l")
+animation = &"gif"
+autoplay = "gif"
+speed_scale = 3.0
+
+[node name="AnimatedSprite3D4" type="AnimatedSprite3D" parent="audience"]
+transform = Transform3D(-0.56803, 0, -1.91764, 0, 2, 0, 1.91764, 0, -0.56803, -12.1668, 8.80534, -3.42794)
+sprite_frames = ExtResource("17_0418l")
+animation = &"gif"
+autoplay = "gif"
+speed_scale = 3.0
+
+[node name="AnimatedSprite3D5" type="AnimatedSprite3D" parent="audience"]
+transform = Transform3D(1.9757, 0, -0.3108, 0, 2, 0, 0.3108, 0, 1.9757, 0, 8.3569, 12.2793)
+sprite_frames = ExtResource("17_0418l")
+animation = &"gif"
+autoplay = "gif"
+
+[node name="AnimatedSprite3D6" type="AnimatedSprite3D" parent="audience"]
+transform = Transform3D(-0.421763, 0, -1.95502, 0, 2, 0, 1.95502, 0, -0.421763, 15.2317, 8.72754, 1.2032)
+sprite_frames = ExtResource("17_0418l")
+animation = &"gif"
+autoplay = "gif"
+speed_scale = 3.0
+
+[node name="AnimatedSprite3D7" type="AnimatedSprite3D" parent="audience"]
+transform = Transform3D(-0.512781, 0, 1.93315, 0, 2, 0, -1.93315, 0, -0.512781, -11.4756, 8.71599, 3.61636)
+sprite_frames = ExtResource("17_0418l")
+animation = &"gif"
+autoplay = "gif"
+
+[node name="AnimatedSprite3D8" type="AnimatedSprite3D" parent="audience"]
+transform = Transform3D(1.33369, 0, -1.49039, 0, 2, 0, 1.49039, 0, 1.33369, -7.70432, 7.5117, 7.04382)
+sprite_frames = ExtResource("17_0418l")
+animation = &"gif"
+autoplay = "gif"
+speed_scale = 3.0
+
+[node name="AnimatedSprite3D9" type="AnimatedSprite3D" parent="audience"]
+transform = Transform3D(-0.174207, 0, -1.9924, 0, 2, 0, 1.9924, 0, -0.174207, -11.9782, 8.17578, 0.00208306)
+sprite_frames = ExtResource("17_0418l")
+animation = &"gif"
+autoplay = "gif"
+
+[node name="AnimatedSprite3D10" type="AnimatedSprite3D" parent="audience"]
+transform = Transform3D(1.60403, 0, 1.19461, 0, 2, 0, -1.19461, 0, 1.60403, -7.70432, 7.54543, -9.15876)
+sprite_frames = ExtResource("17_0418l")
+animation = &"gif"
+autoplay = "gif"
+speed_scale = 3.0
+
+[node name="AnimatedSprite3D11" type="AnimatedSprite3D" parent="audience"]
+transform = Transform3D(-0.989431, 0, 1.73811, 0, 2, 0, -1.73811, 0, -0.989431, 12.6014, 7.6142, -6.54221)
+sprite_frames = ExtResource("17_0418l")
+animation = &"gif"
+autoplay = "gif"
+
+[node name="AnimatedSprite3D12" type="AnimatedSprite3D" parent="audience"]
+transform = Transform3D(-1.26319, 0, -1.55059, 0, 2, 0, 1.55059, 0, -1.26319, 11.7951, 7.6142, 5.92795)
+sprite_frames = ExtResource("17_0418l")
+animation = &"gif"
+autoplay = "gif"
+speed_scale = 3.0
 
 [connection signal="pressed" from="Control/Continue" to="." method="_on_continue_pressed"]
 [connection signal="mouse_entered" from="Control/Player/Attack" to="Control/Player" method="_on_attack_mouse_entered"]
