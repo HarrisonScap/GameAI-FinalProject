@@ -33,8 +33,8 @@
 
 [node name="HardTree" type="Node" node_paths=PackedStringArray("blackboard", "actor")]
 script = ExtResource("1_8dkcy")
-blackboard = NodePath("@Node@18314")
-actor = NodePath("..")
+blackboard = NodePath("@Node@31785")
+actor = NodePath("")
 
 [node name="d3_selector" type="Node" parent="."]
 script = ExtResource("2_la6b6")

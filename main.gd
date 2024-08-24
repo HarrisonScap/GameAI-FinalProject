@@ -9,7 +9,19 @@ extends Node3D
 ############
 
 # Sounds
-@onready var attack_sound_player = $AudioStreamPlayer  # Reference the AudioStreamPlayer node
+#@onready var attack_sound_player = $AudioStreamPlayer  # Reference the AudioStreamPlayer node
+@onready var sound_block = $sound_block
+@onready var sound_break_shield = $sound_break_shield
+@onready var sound_ground_slam = $sound_ground_slam
+@onready var sound_hit = $sound_mace_hit
+@onready var sound_shield_bash = $sound_shield_bash
+@onready var sound_shield_block = $sound_shield_block
+@onready var sound_stab = $sound_spear_stab
+@onready var sound_riposte = $sound_riposte
+@onready var sound_spin_attack = $sound_spin_attack
+@onready var sound_swing = $sound_sword_swing
+
+var audio_player: AudioStreamPlayer
 
 # Attacks
 @onready var attack1_button = $Control/Player/Attack
@@ -56,7 +68,8 @@ func _ready():
 	attack1_button.text = attack_moves[0] + "\nStamina Cost: " + str(Globals.weapons[Globals.playerWeapon][attack_moves[0]]["Stamina"])
 	attack2_button.text = attack_moves[1] + "\nStamina Cost: " + str(Globals.weapons[Globals.playerWeapon][attack_moves[1]]["Stamina"])
 	attack3_button.text = attack_moves[2] + "\nStamina Cost: " + str(Globals.weapons[Globals.playerWeapon][attack_moves[2]]["Stamina"])
-
+	audio_player = AudioStreamPlayer.new()
+	add_child(audio_player)
 
 func _process(delta):
 	# if enemy or player dies...
@@ -182,47 +195,91 @@ func play_player_anim(player_move):
 		player_spear.play(player_move)
 	else:
 		player_mace.play(player_move) #not yet implemented
+		
 
+# Play associated sound for player move
+func play_move_sound(weapon_type: String, move_name: String):
+	# Get the sound path from the dictionary
+	var sound_path
+	if move_name == "Block":
+		sound_path = "res://assets/audio/block.wav"
+	elif move_name == "Potion":
+		sound_path = "res://assets/audio/potion.mp3"
+	else:
+		sound_path = Globals.weapons[weapon_type][move_name]["sound"]
+	
+	if sound_path:
+		# Load the sound file dynamically
+		var sound = load(sound_path)
+		
+		# Set the stream to the AudioStreamPlayer and play it
+		audio_player.stream = sound
+		audio_player.play()
+		
 
 
 # Called by the whatever button the player clicks, gets the enemy move and then calls
 # resolve() to play out the game
 func play(player_move):
-	
-
-	#var sound_path = Globals.weapons[Globals.playerWeapon][player_move]["sound"]
-	#var sound_stream = load(sound_path)
-	#
-	#if sound_stream != null:
-		#attack_sound_player.stream = sound_stream
-		#attack_sound_player.play()
-	
 
 	# Handle enemy move
 	var enemy_move = Globals.enemyMove
-		# Percent chance to go to an action camera
+	
+	# Percent chance to go to an action camera
 	var cameraChance = randf_range(0,100)
-	if cameraChance < 15:
-		actionCam1.make_current()
-	elif cameraChance < 30 and enemy_move != "Pass":
-		actionCam2.make_current()
-	elif cameraChance < 65 and player_move != "Pass":
-		actionCam3.make_current()
+	#label.text = "The player chooses " + str(player_move) + "\n" + str(enemy.name) + " chooses " + str(enemy_move)
+
+	if cameraChance < 35:
+		actionCam1.make_current() #both players in view
+		if enemy_move != "Pass":
+			play_move_sound(Globals.enemyWeapon, enemy_move) #enemy move
+		play_enemy_anim(enemy_move)
+		print("Enemy chooses " + str(enemy_move))
+		label.text = str(enemy.name) + " chooses " + str(enemy_move)
+		await get_tree().create_timer(3).timeout
+
+		if player_move != "Pass":
+			play_move_sound(Globals.playerWeapon, player_move) #player move
+		play_player_anim(player_move)
+		print("Player chooses " + str(player_move))
+		label.text = "The player chooses " + str(player_move)
+		await get_tree().create_timer(3).timeout
+	elif cameraChance < 70:
+		actionCam2.make_current() #enemy in view
+		if enemy_move != "Pass":
+			play_move_sound(Globals.enemyWeapon, enemy_move) #enemy move
+		play_enemy_anim(enemy_move)
+		print("Enemy chooses " + str(enemy_move))
+		label.text = str(enemy.name) + " chooses " + str(enemy_move)
+		await get_tree().create_timer(3).timeout
+
+		actionCam3.make_current() # player in view
+		if player_move != "Pass":
+			play_move_sound(Globals.playerWeapon, player_move) #player move
+		play_player_anim(player_move)
+		print("Player chooses " + str(player_move))
+		label.text = "The player chooses " + str(player_move)
+		await get_tree().create_timer(3).timeout
 	else:
 		normalCamera.make_current()
+		if enemy_move != "Pass":
+			play_move_sound(Globals.enemyWeapon, enemy_move) #enemy move
+		play_enemy_anim(enemy_move)
+		print("Enemy chooses " + str(enemy_move))
+		label.text = str(enemy.name) + " chooses " + str(enemy_move)
+		await get_tree().create_timer(3).timeout
 
+		if player_move != "Pass":
+			play_move_sound(Globals.playerWeapon, player_move) #player move
+		play_player_anim(player_move)
+		print("Player chooses " + str(player_move))
+		label.text = "The player chooses " + str(player_move)
+		await get_tree().create_timer(3).timeout
 
-
-	# Play both attack animations
-	play_enemy_anim(enemy_move)
-	print("Player chooses" + player_move)
-	play_player_anim(player_move)
-	
-	print("Enemy chooses " + str(enemy_move))
-	
+	label.text = ""
 	resolve(player_move, enemy_move) # Resolve conflict
-	
 	game_round += 1
+
 
 # Handles all the game logic regarding what moves do what -- we may wana think of
 # a better way to do this...
@@ -290,9 +347,6 @@ func resolve(player_move, enemy_move):
 		#some moves are unblockable
 		if player_move in Globals.unblockable_moves:
 			Globals.enemyHealth -= (Globals.weapons[Globals.playerWeapon][player_move]["damage"])
-			#spin attack stuns the attacker
-			if player_move == "Spin Attack":
-				Globals.playerStun = true
 	
 		#riposte is a block that deals damage to the attacker
 		elif enemy_move == "Riposte":
@@ -306,8 +360,6 @@ func resolve(player_move, enemy_move):
 	elif (player_move in Globals.block_moves) && (enemy_move in Globals.damage_moves):
 		if enemy_move in Globals.unblockable_moves:
 			Globals.playerHealth -= Globals.weapons[Globals.enemyWeapon][enemy_move]["damage"]
-			if enemy_move == "Spin Attack":
-				Globals.enemyStun = true
 	
 		elif player_move == "Riposte":
 			Globals.enemyHealth -= Globals.weapons["Sword"]["Riposte"]["damage"]
@@ -344,16 +396,19 @@ func resolve(player_move, enemy_move):
 			Globals.playerHealth -= Globals.weapons[Globals.enemyWeapon][enemy_move]["damage"]		
 
 	# Reset camera if not normal
-	if get_viewport().get_camera_3d() != normalCamera:
-		await get_tree().create_timer(3).timeout
-		normalCamera.make_current()
+	# if get_viewport().get_camera_3d() != normalCamera:
+	# 	await get_tree().create_timer(3).timeout
+	# 	normalCamera.make_current()
+	normalCamera.make_current()
 
-	# Put together the resolution text
-	if Globals.enemyHealth > 0:
-		label.text = "The player chooses " + str(player_move) + "\n" + str(enemy.name) + " chooses " + str(enemy_move)
-		continue_button.visible = true
-	else:
-		toggle_button_visibility() # idk why i need to do this tbh
+	# # Put together the resolution text
+	# if Globals.enemyHealth > 0:
+	# 	#label.text = "The player chooses " + str(player_move) + "\n" + str(enemy.name) + " chooses " + str(enemy_move)
+	# 	continue_button.visible = true
+	# else:
+	# 	toggle_button_visibility() # idk why i need to do this tbh
+	toggle_button_visibility()
+
 
 	
 
@@ -415,8 +470,8 @@ func _on_potion_pressed():
 		toggle_button_visibility()
 		
 # Signal from continue button
-func _on_continue_pressed():
-	label.text = ""
-	continue_button.visible = false
-	toggle_button_visibility()
+# func _on_continue_pressed():
+# 	label.text = ""
+# 	continue_button.visible = false
+# 	toggle_button_visibility()
 
