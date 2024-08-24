@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=3 uid="uid://bm3ip2d6pqnxj"]
+[gd_scene load_steps=21 format=3 uid="uid://bm3ip2d6pqnxj"]
 
 [ext_resource type="Script" path="res://Enemy.gd" id="1_cccd8"]
 [ext_resource type="PackedScene" uid="uid://b36ufns1mo2kc" path="res://assets/gltf/arena/arena.gltf" id="1_nenmy"]
@@ -15,17 +15,7 @@
 [ext_resource type="PackedScene" uid="uid://8itlle5156kv" path="res://assets/players/sword/sword_player.tscn" id="14_qj6km"]
 [ext_resource type="PackedScene" uid="uid://d3psgsoedgy18" path="res://assets/players/spear/player_spear.tscn" id="15_vnym5"]
 [ext_resource type="PackedScene" uid="uid://sfyjqqbgm4uw" path="res://assets/players/mace/player_mace.tscn" id="16_1y246"]
-[ext_resource type="AudioStream" uid="uid://dvwioweiiqc3p" path="res://assets/audio/block.wav" id="17_4f16b"]
 [ext_resource type="SpriteFrames" uid="uid://dg4kvhq862uvc" path="res://assets/gifs/audience.gif" id="17_0418l"]
-[ext_resource type="AudioStream" uid="uid://c2mw6pkvol311" path="res://assets/audio/mace_break_shiedl.wav" id="18_t4o11"]
-[ext_resource type="AudioStream" uid="uid://b3i6dsx1voudl" path="res://assets/audio/mace_ground_slam.mp3" id="19_cbkvl"]
-[ext_resource type="AudioStream" uid="uid://de5cxdhqr0uff" path="res://assets/audio/mace_hit.mp3" id="20_m75j3"]
-[ext_resource type="AudioStream" uid="uid://bygmtt8vxlnoh" path="res://assets/audio/shield_bash.mp3" id="21_xrotd"]
-[ext_resource type="AudioStream" uid="uid://b015oi7h3et0q" path="res://assets/audio/shield_block.mp3" id="22_dx7y7"]
-[ext_resource type="AudioStream" uid="uid://c4rservp5x27i" path="res://assets/audio/spear_stab.wav" id="23_vwqxy"]
-[ext_resource type="AudioStream" uid="uid://bm08654xtl8oh" path="res://assets/audio/sword_riposte.wav" id="24_prwev"]
-[ext_resource type="AudioStream" uid="uid://dpkd165xqo4ls" path="res://assets/audio/sword_spin_attack.wav" id="25_5jyax"]
-[ext_resource type="AudioStream" uid="uid://btu7uiq572rk4" path="res://assets/audio/sword_swing.mp3" id="26_g5xyx"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_nvopg"]
 sky_top_color = Color(0.658493, 0.342203, 0.325236, 1)
@@ -183,15 +173,16 @@ script = ExtResource("1_cccd8")
 
 [node name="EasyTree" parent="Control/Enemy" node_paths=PackedStringArray("blackboard", "actor") instance=ExtResource("5_sxouq")]
 enabled = false
-blackboard = NodePath("@Node@32155")
+blackboard = NodePath("@Node@17506")
 actor = NodePath("..")
 
 [node name="MediumTree" parent="Control/Enemy" node_paths=PackedStringArray("blackboard", "actor") instance=ExtResource("5_01pq8")]
-blackboard = NodePath("@Node@32156")
+blackboard = NodePath("@Node@17507")
 actor = NodePath("..")
 
-[node name="HardTree" parent="Control/Enemy" node_paths=PackedStringArray("blackboard") instance=ExtResource("8_ftcwc")]
-blackboard = NodePath("@Node@32157")
+[node name="HardTree" parent="Control/Enemy" node_paths=PackedStringArray("blackboard", "actor") instance=ExtResource("8_ftcwc")]
+blackboard = NodePath("@Node@17508")
+actor = NodePath("..")
 
 [node name="Attack1" type="Button" parent="Control/Enemy"]
 offset_left = 1006.0
@@ -330,36 +321,6 @@ sprite_frames = ExtResource("17_0418l")
 animation = &"gif"
 autoplay = "gif"
 speed_scale = 3.0
-
-[node name="sound_block" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("17_4f16b")
-
-[node name="sound_break_shield" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("18_t4o11")
-
-[node name="sound_ground_slam" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("19_cbkvl")
-
-[node name="sound_mace_hit" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("20_m75j3")
-
-[node name="sound_shield_bash" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("21_xrotd")
-
-[node name="sound_shield_block" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("22_dx7y7")
-
-[node name="sound_spear_stab" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("23_vwqxy")
-
-[node name="sound_riposte" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("24_prwev")
-
-[node name="sound_spin_attack" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("25_5jyax")
-
-[node name="sound_sword_swing" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("26_g5xyx")
 
 [connection signal="pressed" from="Control/Continue" to="." method="_on_continue_pressed"]
 [connection signal="mouse_entered" from="Control/Player/Attack" to="Control/Player" method="_on_attack_mouse_entered"]
